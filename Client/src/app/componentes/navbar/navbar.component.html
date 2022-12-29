@@ -96,7 +96,7 @@
         <!--Fila 1 (titulo del proyecto, RESPALDO)-->   
         <div class="container-fluid">
             <a class="navbar-brand" type="submit" >
-                Calculadora              
+                Interprete_U              
             </a>
             <!--Cada bloque div aqui dentro es una nueva fila hacia abajo-->
             <!--Fila 2 (menus)-->
@@ -128,29 +128,15 @@
                             <li><a class="dropdown-item" role="button" (click)="Limpiar()">Limpiar</a></li> 
                         </ul>
 
-                        <!--
-
-                        <div class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" role="button">Abrir</a>
-                                <input type="file" id="archivo" name="archivo" accept=".txt, .rs">
-                                <a class="dropdown-item" role="button">Guardar</a>
-                                <a class="dropdown-item" role="button">Guardar como</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" role="button">Crear</a>
-                            </li>
-                        </div>
-                        -->
-
                     </li>
 
                     <!-- MENU REPORTES -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes </a>
                         <div class="dropdown-menu">
-                            <li> <a class="dropdown-item" role="button" routerLinkActive="active" routerLink="reporteAST">Reporte AST</a> </li>
-                            <li> <a class="dropdown-item" role="button" routerLinkActive="active" routerLink="reporteErrores">Reporte de Errores</a> </li>
-                            <li> <a class="dropdown-item" role="button" routerLinkActive="active" routerLink="reporteTS">Reporte TS (Tabla de Simbolos)</a> </li>
+                            <li> <a class="dropdown-item" role="button" (click)="reporteAST()" routerLinkActive="active" routerLink="reporteAST">Reporte AST</a> </li>
+                            <li> <a class="dropdown-item" role="button" (click)="reporteError()" routerLinkActive="active" routerLink="reporteErrores">Reporte de Errores</a> </li>
+                            <li> <a class="dropdown-item" role="button" (click)="reporteTS()" routerLinkActive="active" routerLink="reporteTS">Reporte TS (Tabla de Simbolos)</a> </li>
                         </div>
                     </li>
                     
@@ -163,7 +149,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" type="button" id="about" (click)="setData()">setData</a>
+                        <a class="nav-link" type="button" id="manuales" (click)="setData()">Manuales</a>
                     </li>
 
                 </ul><!--Fin de lista de menus-->

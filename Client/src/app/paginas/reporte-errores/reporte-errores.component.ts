@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/servicios/data.service';
 
 @Component({
   selector: 'app-reporte-errores',
@@ -7,9 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReporteErroresComponent implements OnInit {
 
-  constructor() { }
+  Reporte:Array<any> = [];
+
+  constructor(private dataService: DataService ) { }
 
   ngOnInit(): void {
+    this.dataService.reporteErrore$.subscribe(text => {
+      this.Reporte = [];
+      this.GetErrores();
+    })
+  }
+ 
+  ngOnDestroy() {
+    
+  }
+ 
+  GetErrores(){
+    this.dataService.getErrores().subscribe(
+      (res: any)=>{
+        //let lista: Array<any> = res.reporte;
+        this.Reporte = res.reporte;
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
   }
 
 }
