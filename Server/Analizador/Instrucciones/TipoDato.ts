@@ -17,8 +17,8 @@ export default class TipoDato implements Instruccion{
     constructor(tipoDato:string){
         this.dato = tipoDato;
     }
-
-    TraducirPython(): string {
+    OperarExpresion(): string {
         return "";
     }
+
 }

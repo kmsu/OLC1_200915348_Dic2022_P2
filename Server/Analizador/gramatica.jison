@@ -34,6 +34,7 @@ caracter     (\'({escape2}|{aceptada2})\')
 "return"                return 'resReturn';
 "break"                 return 'resBreak';
 "continue"              return 'resContinue';
+"new"                   return 'resNew';
 
 //Tipos de datos
 "int"                   return 'resInt';
@@ -149,38 +150,14 @@ INSTRUCCION
     |METODO { $$ = $1; }
     |FUNCION { $$ = $1; }
     |LLAMADAFUNCION PComa{ $$ = $1; }
-;
-
-LLAMADAFUNCION
-    :Id ParA ParC {console.log("hola"); $$ = $1;}
-    |Id ParA PARAMETROFUNCIONES ParC {console.log("hola"); $$ = $1;}
-;
-
-PARAMETROFUNCIONES
-    :PARAMETROFUNCIONES Coma EXPRESION { $$ = $1; $$.push($3); }
-    |EXPRESION { $$ = new Array(); $$.push($1); }
-;
-
-METODO
-    :resVoid Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = $6; }
-    |resVoid Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = $7; }
-;
-
-FUNCION
-    :TIPO Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = $6; }
-    |TIPO Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = $7; }
-;
-
-PARAMETRO
-    :PARAMETRO Coma TIPO Id { $$ = $1; $$.push($4); }
-    |TIPO Id { $$ = new Array(); $$.push($2); }
+    |VECTORES { $$ = $1; }
+    |LLAMADAVECTOR PComa{ $$ = $1; }
 ;
 
 /* int var1, var2, var3; */
 DECLARACION
     :TIPO LISTAVARIABLES Igual EXPRESION PComa { $$ = $4; }
     |TIPO LISTAVARIABLES PComa { console.log("reconocio una declaracion sin expresion"); }
-    
 ;
 
 ASIGNACION
@@ -222,6 +199,8 @@ EXPRESION
     | 'Menos' EXPRESION %prec UMenos {$$ = -$2;}
     //AGRUPACION 
     | ParA EXPRESION ParC {$$ = $2;}
+    //TERNARIO
+    | EXPRESION Interrogacion EXPRESION DosPuntos EXPRESION { $$ = $1 + "?" + $3 + ":" + $5; }
     //TERMINALES
     | Cadena {$$ = $1;}
     | Caracter {$$ = $1;}
@@ -229,9 +208,9 @@ EXPRESION
     | Decimal {$$ = Number($1);}
     | Verdadero {$$ = $1;}
     | Falso {$$ = $1;}
-    |LLAMADAFUNCION {$$ = $1;}
-    | Id   {$$ = $1;}
-    
+    | LLAMADAFUNCION {$$ = $1;}
+    | LLAMADAVECTOR {$$ = $1;}
+    | Id   {$$ = $1;}   
 ;
 
 INCREMENTALES
@@ -291,3 +270,36 @@ PRINT
     :resWrite ParA EXPRESION ParC PComa { $$ = $3;} 
 ;
 
+METODO
+    :resVoid Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = $6; }
+    |resVoid Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = $7; }
+;
+
+FUNCION
+    :TIPO Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = $6; }
+    |TIPO Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = $7; }
+;
+
+PARAMETRO
+    :PARAMETRO Coma TIPO Id { $$ = $1; $$.push($4); }
+    |TIPO Id { $$ = new Array(); $$.push($2); }
+;
+
+LLAMADAFUNCION
+    :Id ParA ParC {$$ = $1;}
+    |Id ParA LISTAEXPRESION ParC { $$ = $1;}
+;
+
+LISTAEXPRESION
+    :LISTAEXPRESION Coma EXPRESION { $$ = $1; $$.push($3); }
+    |EXPRESION { $$ = new Array(); $$.push($1); }
+;
+
+VECTORES
+    :TIPO Id CorA CorC Igual resNew TIPO CorA EXPRESION CorC PComa { $$ = $1 + " " + $2 + " " + $9; }
+    |TIPO Id CorA CorC Igual LlaveA LISTAEXPRESION LlaveC PComa { $$= $1 + " " + $2+ " " + $7; }
+;
+
+LLAMADAVECTOR
+    :Id CorA EXPRESION CorC { $$= $1 + $3; }
+;
