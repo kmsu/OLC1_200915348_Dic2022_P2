@@ -40,7 +40,7 @@ caracter     (\'({escape2}|{aceptada2})\')
 "int"                   return 'resInt';
 "double"                return 'resDouble';
 "char"                  return 'resChar';
-"boolean"                  return 'resBool';
+"boolean"               return 'resBool';
 "string"                return 'resString';
 
 //Reservadas estructuras de control
@@ -132,7 +132,7 @@ INIT
 INSTRUCCIONES
     :INSTRUCCIONES INSTRUCCION { $$ = $1; $$.push($2);}
     |INSTRUCCION { $$ = new Array(); $$.push($1); }
-    |error INSTRUCCIONES { console.error("Sintactico", this._$.first_line, this._$.first_column,"Caracter no valido: " + yytext); }
+    
 ;
 
 INSTRUCCION
@@ -152,6 +152,7 @@ INSTRUCCION
     |LLAMADAFUNCION PComa{ $$ = $1; }
     |VECTORES { $$ = $1; }
     |LLAMADAVECTOR PComa{ $$ = $1; }
+    |error { console.error("Error Sintactico", this._$.first_line, this._$.first_column,"Token no valido: " + yytext); }
 ;
 
 /* int var1, var2, var3; */
