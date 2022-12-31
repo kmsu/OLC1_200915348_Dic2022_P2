@@ -20,10 +20,13 @@ var resultado = '';
 var reportError;
 app.post('/editor', function(req, res) {
   var Arbol =  gramatica.parse(req.body.dato);
-  resultado = Arbol.getTraduccion();
-   
-  reportError = Arbol.getReporte();
- 
+  //resultado = Arbol.getTraduccion(); 
+  //reportError = Arbol.getReporte();
+  //resultado = gramatica.parse(req.body.dato);
+  resultado = '';
+  for(let var1 of Arbol){
+    resultado += var1 + "\n";
+  }
   res.json({resul: resultado})
 })
 

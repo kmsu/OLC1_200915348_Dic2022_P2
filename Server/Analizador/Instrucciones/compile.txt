@@ -1,0 +1,2 @@
+Aritmetica.ts
+Logica.ts

@@ -5,6 +5,7 @@
 Decimal [0-9]+("."[0-9]+)?\b 
 D [0-9]+\b
 id [a-zñA-ZÑ_][a-zñA-ZÑ0-9_]*
+
 //--> Cadena
 escapechar  [\'\"\\ntr]
 escape      \\{escapechar}
@@ -124,13 +125,13 @@ caracter     (\'({escape2}|{aceptada2})\')
 
 %% 
 INIT
-    :INSTRUCCIONES EOF { console.log("reconocio la cadena") }
+    :INSTRUCCIONES EOF { console.log("reconocio la gramatica"); return $$; }
 ;
 
 INSTRUCCIONES
     :INSTRUCCIONES INSTRUCCION { $$ = $1; $$.push($2);}
     |INSTRUCCION { $$ = new Array(); $$.push($1); }
-    |error INSTRUCCION { console.error("Sintactico", this._$.first_line, this._$.first_column,"Caracter no valido: " + yytext); }
+    |error INSTRUCCIONES { console.error("Sintactico", this._$.first_line, this._$.first_column,"Caracter no valido: " + yytext); }
 ;
 
 INSTRUCCION
@@ -147,16 +148,27 @@ INSTRUCCION
     |PRINT { $$ = $1; }
     |METODO { $$ = $1; }
     |FUNCION { $$ = $1; }
+    |LLAMADAFUNCION PComa{ $$ = $1; }
+;
+
+LLAMADAFUNCION
+    :Id ParA ParC {console.log("hola"); $$ = $1;}
+    |Id ParA PARAMETROFUNCIONES ParC {console.log("hola"); $$ = $1;}
+;
+
+PARAMETROFUNCIONES
+    :PARAMETROFUNCIONES Coma EXPRESION { $$ = $1; $$.push($3); }
+    |EXPRESION { $$ = new Array(); $$.push($1); }
 ;
 
 METODO
-    :resVoid Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFuncion.default($2, null, $6); }
-    |resVoid Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFuncion.default($2, $4, $7); }
+    :resVoid Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = $6; }
+    |resVoid Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = $7; }
 ;
 
 FUNCION
-    :TIPO Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFuncion.default($2, null, $6); }
-    |TIPO Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFuncion.default($2, $4, $7); }
+    :TIPO Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = $6; }
+    |TIPO Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = $7; }
 ;
 
 PARAMETRO
@@ -168,10 +180,11 @@ PARAMETRO
 DECLARACION
     :TIPO LISTAVARIABLES Igual EXPRESION PComa { $$ = $4; }
     |TIPO LISTAVARIABLES PComa { console.log("reconocio una declaracion sin expresion"); }
+    
 ;
 
 ASIGNACION
-    :LISTAVARIABLES Igual EXPRESION PComa { console.log("reconocio una asignaicion"); }
+    :LISTAVARIABLES Igual EXPRESION PComa { $$ = $3; }
 ;
 
 /* var1, var2, var3  */
@@ -195,16 +208,16 @@ EXPRESION
     | EXPRESION 'Por' EXPRESION   {$$ = $1 * $3;}
     | EXPRESION 'Div' EXPRESION   {$$ = $1 / $3;}
     //RELACIONALES
-    | EXPRESION 'MayorQue' EXPRESION    {$$ = $1 + $3;}
-    | EXPRESION 'MenorQue' EXPRESION    {$$ = $1 + $3;}
-    | EXPRESION 'Igualdad' EXPRESION    {$$ = $1 + $3;}
-    | EXPRESION 'Distinto' EXPRESION    {$$ = $1 + $3;}
-    | EXPRESION 'MayorIgual' EXPRESION  {$$ = $1 + $3;}
-    | EXPRESION 'MenorIgual' EXPRESION  {$$ = $1 + $3;}
+    | EXPRESION 'MayorQue' EXPRESION    {$$ = $1 > $3;}
+    | EXPRESION 'MenorQue' EXPRESION    {$$ = $1 < $3;}
+    | EXPRESION 'Igualdad' EXPRESION    {$$ = $1 == $3;}
+    | EXPRESION 'Distinto' EXPRESION    {$$ = $1 != $3;}
+    | EXPRESION 'MayorIgual' EXPRESION  {$$ = $1 >= $3;}
+    | EXPRESION 'MenorIgual' EXPRESION  {$$ = $1 <= $3;}
     //LOGICOS
-    | EXPRESION 'And' EXPRESION {$$ = $1 + $3;}
-    | EXPRESION 'Or' EXPRESION   {$$ = $1 + $3;}
-    | 'Not' EXPRESION   {$$ = $2;}
+    | EXPRESION 'And' EXPRESION {$$ = $1 && $3;}
+    | EXPRESION 'Or' EXPRESION   {$$ = $1 || $3;}
+    | 'Not' EXPRESION   {$$ = !$2;}
     //UNARIOS
     | 'Menos' EXPRESION %prec UMenos {$$ = -$2;}
     //AGRUPACION 
@@ -212,70 +225,69 @@ EXPRESION
     //TERMINALES
     | Cadena {$$ = $1;}
     | Caracter {$$ = $1;}
-    | Entero {$$ = $1;}
-    | Decimal {$$ = $1;}
+    | Entero {$$ = Number($1);}
+    | Decimal {$$ = Number($1);}
     | Verdadero {$$ = $1;}
     | Falso {$$ = $1;}
+    |LLAMADAFUNCION {$$ = $1;}
     | Id   {$$ = $1;}
+    
+;
+
+INCREMENTALES
+    :Id Incremento {$$ = $1+$2;}
+    |Id Decremento {$$ = $1+$2;}
 ;
 
 IF
     //:resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classIf.default($3, $6, null); }
-    :resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC ELSE { $$ = new classIf.default($3, $6, $8); }
+    :resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC ELSE { $$ = "if " + $3 + " ins " + $6 + " else " +$8; }
 ;
 
 ELSE
-    :resElse resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC ELSE { $$ = new classElse.default($4, $7, $9); }
-    |resElse LlaveA INSTRUCCIONES LlaveC { $$ = new classElse.default(null, $3, null); }
+    :resElse resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC ELSE { $$ = "exp " + $4 + " ins " + " else " +$7; }
+    |resElse LlaveA INSTRUCCIONES LlaveC { $$ = $3; }
     |
 ;
 
 WHILE
-    :resWhile ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classWhile.default($3, $6);}
+    :resWhile ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC { $$ = $3+$6;}
 ;
 
 SWITCH
-    :resSwitch ParA EXPRESION ParC LlaveA CASE LlaveC { $$ = new classSwitch.default($3, $6);}
+    :resSwitch ParA EXPRESION ParC LlaveA CASE LlaveC { $$ = $3 + $6;}
 ;
 
 CASE
-    :resCase Caracter DosPuntos INSTRUCCIONES CASE { $$ = new classCase.default($2, $4, $5);}
-    |resCase Cadena DosPuntos INSTRUCCIONES CASE { $$ = new classCase.default($2, $4, $5);}
-    |resCase Decimal DosPuntos INSTRUCCIONES CASE { $$ = new classCase.default($2, $4, $5);}
-    |resCase Entero DosPuntos INSTRUCCIONES CASE { $$ = new classCase.default($2, $4, $5);}
-    |resDefault DosPuntos INSTRUCCIONES { $$ = new classCase.default(null, $3, null);}
+    :resCase Caracter DosPuntos INSTRUCCIONES CASE { $$ = $4+$5;}
+    |resCase Cadena DosPuntos INSTRUCCIONES CASE { $$ = $4+$5; }
+    |resCase Decimal DosPuntos INSTRUCCIONES CASE { $$ = $4+$5;}
+    |resCase Entero DosPuntos INSTRUCCIONES CASE { $$ = $4+$5;}
+    |resDefault DosPuntos INSTRUCCIONES { $$ = $3;}
 ;
 
 DO
-    :resDo LlaveA INSTRUCCIONES LlaveC resWhile ParA EXPRESION ParC PComa { $$ = new classDo.default($3, $7);}
+    :resDo LlaveA INSTRUCCIONES LlaveC resWhile ParA EXPRESION ParC PComa { $$ = $3+" "+$7;}
 ;
 
 FOR
-    :resFor ParA TIPO Id Igual EXPRESION PComa Id RELACIONAL EXPRESION PComa Id Incremento ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFor.default($4, $6, $10, $12, $13, $16); }
-    |resFor ParA TIPO Id Igual EXPRESION PComa Id RELACIONAL EXPRESION PComa Id Decremento ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFor.default($4, $6, $10, $12, $13, $16); }
-;
-
-RELACIONAL
-    :MayorQue { $$ = $1; }
-    |MenorQue { $$ = $1; }
-    |MayorIgual { $$ = $1; }
-    |MenorIgual { $$ = $1; }
+    :resFor ParA TIPO Id Igual EXPRESION PComa EXPRESION PComa INCREMENTALES ParC LlaveA INSTRUCCIONES LlaveC { $$ = "De " + $6 + " as " + $8 + " Inc " + $10 + " ins " + $13; }
 ;
 
 BREAK
-    :resBreak PComa { $$ = new classBreak.default($1);}
+    :resBreak PComa { $$ = $1;}
 ;
 
 CONTINUE
-    :resContinue PComa { $$ = new classBreak.default($1);}
+    :resContinue PComa { $$ = $1;}
 ;
 
 RETURN
-    :resReturn EXPRESION PComa { $$ = new classReturn.default($1, $2); }
-    |resReturn PComa { $$ = new classReturn.default($1, null); }
+    :resReturn EXPRESION PComa { $$ = $2; }
+    |resReturn PComa { $$ = $1; }
 ;
 
 PRINT
-    :resWrite ParA EXPRESION ParC PComa { $$ = new classPrint.default($5, null);} 
+    :resWrite ParA EXPRESION ParC PComa { $$ = $3;} 
 ;
 
