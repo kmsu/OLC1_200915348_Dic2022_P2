@@ -111,7 +111,7 @@ case 26: case 27: case 28: case 29: case 30:
 this.$ = $$[$0];
 break;
 case 31:
-this.$ = $$[$0-2] + $$[$0];
+this.$ = new aritmetica.default($$[$0-2], '+', $$[$0], this._$.first_line, this._$.first_column);
 break;
 case 32:
 this.$ = $$[$0-2] - $$[$0];
@@ -494,6 +494,8 @@ _handle_error:
     const cadena = require('../Analizador/Instrucciones/ExpresionesTerminales/Cadena');
     const chhar = require('../Analizador/Instrucciones/ExpresionesTerminales/Chhar');
     const id = require('../Analizador/Instrucciones/ExpresionesTerminales/Identificador');
+
+    const aritmetica = require('../Analizador/Instrucciones/OperacionesExpresiones/Aritmetica');
 
     const classPrint = require('../Analizador/Instrucciones/Print');
 

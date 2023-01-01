@@ -118,6 +118,8 @@ caracter     (\'({escape2}|{aceptada2})\')
     const chhar = require('../Analizador/Instrucciones/ExpresionesTerminales/Chhar');
     const id = require('../Analizador/Instrucciones/ExpresionesTerminales/Identificador');
 
+    const aritmetica = require('../Analizador/Instrucciones/OperacionesExpresiones/Aritmetica');
+
     const classPrint = require('../Analizador/Instrucciones/Print');
 
     const classAnalisis = require('./Analisis');
@@ -191,7 +193,7 @@ TIPO
 
 EXPRESION
     //ARITMETICOS
-    : EXPRESION 'Mas' EXPRESION   {$$ = $1 + $3;}
+    : EXPRESION 'Mas' EXPRESION   {$$ = new aritmetica.default($1, '+', $3, this._$.first_line, this._$.first_column);}
     | EXPRESION 'Menos' EXPRESION {$$ = $1 - $3;}
     | EXPRESION 'Por' EXPRESION   {$$ = $1 * $3;}
     | EXPRESION 'Div' EXPRESION   {$$ = $1 / $3;}
