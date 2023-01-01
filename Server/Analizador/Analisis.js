@@ -1,8 +1,10 @@
+const { default: TablaSimbolos } = require("./Instrucciones/TablaSimbolos/TablaSimbolos");
 
-class Reportes {
+class Analisis {
 
     constructor(){
         this.clearAll();
+        this.tabla = new TablaSimbolos;
     }
 
     clearAll() {
@@ -11,6 +13,7 @@ class Reportes {
          *  */
         this.errores = [];
         this.arbol = [];
+        
     }
 
     getErrores(){
@@ -18,9 +21,7 @@ class Reportes {
     }
 
     putError(tipo, fila, columna, descripcion){
-        
         this.errores.push({ Tipo:tipo, Linea:fila, Columna:columna, Descripcion:descripcion })
-
     }
 
     putArbol(arbol){
@@ -28,18 +29,14 @@ class Reportes {
     }
 
     getReporte(){
-        /*var cadena = '';
-        for (var i = 0; i < this.errores.length ; i++) {
-            cadena += "<td>" + i + "</td>" + this.errores[i];
-        }
-        cadena += "</table>";*/
+        //Se recorren desde el cliente
         return this.errores;
     }
  
-    getTraduccion(){
+    getConsola(){
         var cadeA = "";
         for(var i=0; i<this.arbol.length; i++){
-            cadeA+=this.arbol[i].TraducirPython()+"\n";
+            cadeA += this.arbol[i].ejecutarInstruccion(this.tabla) +"\n";
         }
         return cadeA;
     }
@@ -47,4 +44,4 @@ class Reportes {
 
 }
 
-module.exports = Reportes;
+module.exports = Analisis;

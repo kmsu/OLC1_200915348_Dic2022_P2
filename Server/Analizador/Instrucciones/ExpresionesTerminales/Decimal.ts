@@ -3,7 +3,7 @@ import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
 import { TipoDato } from "../TablaSimbolos/TipoDato";
 
-export default class Numero implements Instruccion {
+export default class Decimal implements Instruccion {
 
     private valor:number;
     private linea:number;
@@ -20,7 +20,7 @@ export default class Numero implements Instruccion {
     }
 
     ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
-        return new Simbolo(TipoDato.ENTERO, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
+        return new Simbolo(TipoDato.DECIMAL, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
     }
     
     dibujarAST(nodoPadre: number): string {

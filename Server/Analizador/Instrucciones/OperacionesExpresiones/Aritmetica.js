@@ -1,66 +1,110 @@
 "use strict";
 exports.__esModule = true;
-exports.Operacion = void 0;
-var Operacion;
-(function (Operacion) {
-    Operacion[Operacion["UnarioSuma"] = 0] = "UnarioSuma";
-    Operacion[Operacion["UnarioResta"] = 1] = "UnarioResta";
-    Operacion[Operacion["Suma"] = 2] = "Suma";
-    Operacion[Operacion["Resta"] = 3] = "Resta";
-    Operacion[Operacion["Multiplicacion"] = 4] = "Multiplicacion";
-    Operacion[Operacion["Division"] = 5] = "Division";
-    Operacion[Operacion["Parentesis"] = 6] = "Parentesis";
-})(Operacion = exports.Operacion || (exports.Operacion = {}));
+var Simbolo_1 = require("../TablaSimbolos/Simbolo");
+var TipoDato_1 = require("../TablaSimbolos/TipoDato");
 var Aritmetica = /** @class */ (function () {
-    function Aritmetica(izquierdo, operador, derecho) {
+    function Aritmetica(izquierdo, operador, derecho, linea, columna) {
+        //Arreglo constante, no debe cambiar sus valores en ningun momento. Tomar en cuenta una fila y una columna de tipo invalido
+        this.matrizSuma = [
+            [TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.CADENA, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO]
+        ];
+        this.matrizResta = [
+            [TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO]
+        ];
+        this.matrizMultiplicacion = [
+            [TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.ENTERO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO]
+        ];
+        this.matrizDivision = [
+            [TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO]
+        ];
+        this.matrizModulo = [
+            [TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.DECIMAL, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO],
+            [TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO, TipoDato_1.TipoDato.INVALIDO]
+        ];
         this.izquierdo = izquierdo;
         this.derecho = derecho;
-        this.operador = this.getOperador(operador);
+        this.operador = operador;
+        this.linea = linea;
+        this.columna = columna;
     }
-    Aritmetica.prototype.getOperador = function (operador) {
-        switch (operador) {
+    Aritmetica.prototype.ejecutarInstruccion = function (tabla) {
+        throw new Error("Method not implemented.");
+    };
+    Aritmetica.prototype.ejecutarExpresion = function (tabla) {
+        var symIzq = this.izquierdo.ejecutarExpresion(tabla);
+        var symDer = this.derecho.ejecutarExpresion(tabla);
+        switch (this.operador) {
             case '+':
-                if (this.izquierdo == null) {
-                    return Operacion.UnarioSuma;
+                var tipo_resultante = this.matrizSuma[symIzq.getTipoDato()][symDer.getTipoDato()];
+                if (tipo_resultante == TipoDato_1.TipoDato.ENTERO || tipo_resultante == TipoDato_1.TipoDato.DECIMAL) {
+                    var resultado = Number(symIzq.getValor()) + Number(symDer.getValor());
+                    return new Simbolo_1["default"](tipo_resultante, resultado, this.linea, this.columna);
+                }
+                else if (tipo_resultante == TipoDato_1.TipoDato.CADENA) {
+                    var cadIzq = void 0;
+                    var cadDer = void 0;
+                    if (symIzq.getTipoDato() == TipoDato_1.TipoDato.CARACTER) {
+                        cadIzq = String.fromCharCode(Number(symIzq.getValor()));
+                    }
+                    else {
+                        cadIzq = symIzq.getValor().toString();
+                    }
+                    if (symDer.getTipoDato() == TipoDato_1.TipoDato.CARACTER) {
+                        cadDer = String.fromCharCode(Number(symDer.getValor()));
+                    }
+                    else {
+                        cadDer = symDer.getValor().toString();
+                    }
+                    var resultado = cadIzq.concat(cadDer);
+                    return new Simbolo_1["default"](tipo_resultante, resultado, this.linea, this.columna);
                 }
                 else {
-                    return Operacion.Suma;
+                    //invalido, error semantico, no se puede sumar estos tipos de datos
                 }
             case '-':
                 if (this.izquierdo == null) {
-                    return Operacion.UnarioResta;
+                    //return UnarioResta;
                 }
                 else {
-                    return Operacion.Resta;
+                    //return Resta;
                 }
             case "*":
-                return Operacion.Multiplicacion;
+            //return Multiplicacion;
             case '/':
-                return Operacion.Division;
+            //return Division;
+            case '%':
+            //return modulo;
             default:
-                return Operacion.Parentesis;
+            //return error semantico;
         }
+        throw new Error("Method not implemented.");
     };
-    Aritmetica.prototype.TraducirPython = function () {
-        switch (this.operador) {
-            case Operacion.Parentesis:
-                return "(" + this.derecho.TraducirPython() + ")";
-            case Operacion.UnarioSuma:
-                return this.derecho.TraducirPython();
-            case Operacion.UnarioResta:
-                return "-" + this.derecho.TraducirPython();
-            case Operacion.Suma:
-                return this.izquierdo.TraducirPython() + " + " + this.derecho.TraducirPython();
-            case Operacion.Resta:
-                return this.izquierdo.TraducirPython() + " - " + this.derecho.TraducirPython();
-            case Operacion.Multiplicacion:
-                return this.izquierdo.TraducirPython() + " * " + this.derecho.TraducirPython();
-            case Operacion.Division:
-                return this.izquierdo.TraducirPython() + " / " + this.derecho.TraducirPython();
-            default:
-                return "";
-                break;
-        }
+    Aritmetica.prototype.dibujarAST = function (nodoPadre) {
+        throw new Error("Method not implemented.");
     };
     return Aritmetica;
 }());

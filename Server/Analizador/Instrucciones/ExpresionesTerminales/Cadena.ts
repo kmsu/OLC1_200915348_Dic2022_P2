@@ -1,15 +1,29 @@
 import { Instruccion } from "../Instruccion";
+import Simbolo from "../TablaSimbolos/Simbolo";
+import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
+import { TipoDato } from "../TablaSimbolos/TipoDato";
 
 export default class Cadena implements Instruccion{
-    
-    private cadena:string;
-    
-    constructor(valor:string){
-        this.cadena = valor;
+
+    private valor:string;
+    private linea:number;
+    private columna: number;
+
+    constructor(valor:string, linea:number, columna: number){
+        this.valor = valor;
+        this.linea = linea;
+        this.columna = columna;
     }
 
-    TraducirPython(): string {
-        return this.cadena;
+    ejecutarInstruccion(tabla: TablaSimbolos): string {
+        throw new Error("Method not implemented.");
+    }
+
+    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+        return new Simbolo(TipoDato.CADENA, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
     }
     
+    dibujarAST(nodoPadre: number): string {
+        throw new Error("Method not implemented.");
+    }
 }

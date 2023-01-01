@@ -62,6 +62,7 @@ caracter     (\'({escape2}|{aceptada2})\')
 "-"                     return 'Menos';
 "*"                     return 'Por';
 "/"                     return 'Div';
+"%"                     return 'Mod';
 
 //Operadores Relacionales
 "<="                    return 'MenorIgual'
@@ -110,7 +111,17 @@ caracter     (\'({escape2}|{aceptada2})\')
 
 /* Area de imports */
 %{
-    //const evaluar = require('../Clases/Evaluar');
+    const numero = require('../Analizador/Instrucciones/ExpresionesTerminales/Numero');
+    const decimal = require('../Analizador/Instrucciones/ExpresionesTerminales/Decimal');
+    const booleano = require('../Analizador/Instrucciones/ExpresionesTerminales/Booleano');
+    const cadena = require('../Analizador/Instrucciones/ExpresionesTerminales/Cadena');
+    const chhar = require('../Analizador/Instrucciones/ExpresionesTerminales/Chhar');
+    const id = require('../Analizador/Instrucciones/ExpresionesTerminales/Identificador');
+
+    const classPrint = require('../Analizador/Instrucciones/Print');
+
+    const classAnalisis = require('./Analisis');
+    var analisis = new classAnalisis;
 %}
 
 %right 'Interrogacion'
@@ -119,20 +130,19 @@ caracter     (\'({escape2}|{aceptada2})\')
 %right 'Not'
 %left 'Igualdad' 'MenorQue' 'MayorQue' 'MenorIgual' 'MayorIgual' 'Distinto'
 %left 'Mas' 'Menos'
-%left 'Por' 'Div'
+%left 'Por' 'Div' 'Mod'
 %right UMenos
 
 %start INIT
 
 %% 
 INIT
-    :INSTRUCCIONES EOF { console.log("reconocio la gramatica"); return $$; }
+    :INSTRUCCIONES EOF { analisis.putArbol($1); $$=analisis; return $$; }
 ;
 
 INSTRUCCIONES
     :INSTRUCCIONES INSTRUCCION { $$ = $1; $$.push($2);}
     |INSTRUCCION { $$ = new Array(); $$.push($1); }
-    
 ;
 
 INSTRUCCION
@@ -185,6 +195,7 @@ EXPRESION
     | EXPRESION 'Menos' EXPRESION {$$ = $1 - $3;}
     | EXPRESION 'Por' EXPRESION   {$$ = $1 * $3;}
     | EXPRESION 'Div' EXPRESION   {$$ = $1 / $3;}
+    | EXPRESION 'Mod' EXPRESION   {$$ = $1 % $3;}
     //RELACIONALES
     | EXPRESION 'MayorQue' EXPRESION    {$$ = $1 > $3;}
     | EXPRESION 'MenorQue' EXPRESION    {$$ = $1 < $3;}
@@ -197,21 +208,22 @@ EXPRESION
     | EXPRESION 'Or' EXPRESION   {$$ = $1 || $3;}
     | 'Not' EXPRESION   {$$ = !$2;}
     //UNARIOS
-    | 'Menos' EXPRESION %prec UMenos {$$ = -$2;}
+    | 'Menos' Entero %prec UMenos {$$ = -$2;}
+    | 'Menos' Decimal %prec UMenos {$$ = -$2;}
     //AGRUPACION 
     | ParA EXPRESION ParC {$$ = $2;}
     //TERNARIO
     | EXPRESION Interrogacion EXPRESION DosPuntos EXPRESION { $$ = $1 + "?" + $3 + ":" + $5; }
     //TERMINALES
-    | Cadena {$$ = $1;}
-    | Caracter {$$ = $1;}
-    | Entero {$$ = Number($1);}
-    | Decimal {$$ = Number($1);}
-    | Verdadero {$$ = $1;}
-    | Falso {$$ = $1;}
-    | LLAMADAFUNCION {$$ = $1;}
-    | LLAMADAVECTOR {$$ = $1;}
-    | Id   {$$ = $1;}   
+    | Cadena { $$ = new cadena.default($1, this._$.first_line, this._$.first_column); }
+    | Caracter { $$ = new chhar.default($1.charCodeAt(0), this._$.first_line, this._$.first_column); }
+    | Entero { $$ = new numero.default(Number($1), this._$.first_line, this._$.first_column); }
+    | Decimal { $$ = new decimal.default(Number($1), this._$.first_line, this._$.first_column); }
+    | Verdadero { $$ = new booleano.default(true, this._$.first_line, this._$.first_column); }
+    | Falso { $$ = new booleano.default(false, this._$.first_line, this._$.first_column); }
+    | LLAMADAFUNCION { $$ = $1; }
+    | LLAMADAVECTOR { $$ = $1; }
+    | Id   { $$ = new id.default($1, this._$.first_line, this._$.first_column); }   
 ;
 
 INCREMENTALES
@@ -268,7 +280,7 @@ RETURN
 ;
 
 PRINT
-    :resWrite ParA EXPRESION ParC PComa { $$ = $3;} 
+    :resWrite ParA EXPRESION ParC PComa { $$ = new classPrint.default($3, this._$.first_line, this._$.first_column);} 
 ;
 
 METODO

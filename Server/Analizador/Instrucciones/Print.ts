@@ -1,25 +1,33 @@
 import { Instruccion } from "./Instruccion";
+import Simbolo from "./TablaSimbolos/Simbolo";
+import TablaSimbolos from "./TablaSimbolos/TablaSimbolos";
 
 
 export default class Print implements Instruccion{
     
-    private cadena:string;
     private expresion:Instruccion;
+    private linea:number;
+    private columna:number;
     
-    constructor(cadena:string, expresion:Instruccion){
-        this.cadena = cadena;
+    constructor(expresion:Instruccion, linea:number, columna:number){
         this.expresion = expresion;
+        this.linea = linea;
+        this.columna = columna;
     }
 
-    TraducirPython(): string {
-        let resultado = "";
-        if(this.expresion != null){
-            resultado += "print (" + this.cadena + ", " + this.expresion.TraducirPython() + ")" ;
-        }else{
-            resultado += "print (" + this.cadena + ")";
-        }
-        
-        return resultado;
+    ejecutarInstruccion(tabla: TablaSimbolos): string {
+        let symExpresion = this.expresion.ejecutarExpresion(tabla);
+        let consola = symExpresion.getValor().toString();
+        return consola;
     }
+
+    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+        throw new Error("Method not implemented.");
+    }
+    
+    dibujarAST(nodoPadre: number): string {
+        throw new Error("Method not implemented.");
+    }
+
     
 }

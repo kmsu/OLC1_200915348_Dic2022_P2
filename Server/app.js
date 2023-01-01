@@ -19,14 +19,16 @@ app.listen(8080, function () {
 var resultado = '';
 var reportError;
 app.post('/editor', function(req, res) {
-  var Arbol =  gramatica.parse(req.body.dato);
-  //resultado = Arbol.getTraduccion(); 
+  var analisis =  gramatica.parse(req.body.dato);
+  resultado = analisis.getConsola(); 
   //reportError = Arbol.getReporte();
   //resultado = gramatica.parse(req.body.dato);
+  /*
   resultado = '';
-  for(let var1 of Arbol){
+  for(let var1 of analisis){
     resultado += var1 + "\n";
-  }
+  }*/
+
   res.json({resul: resultado})
 })
 
