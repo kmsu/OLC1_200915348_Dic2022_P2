@@ -34,11 +34,11 @@ class Analisis {
     }
  
     getConsola(){
-        var cadeA = "";
+        var consola = "";
         for(var i=0; i<this.arbol.length; i++){
-            cadeA += this.arbol[i].ejecutarInstruccion(this.tabla) +"\n";
+            consola += this.arbol[i].ejecutarInstruccion(this.tabla) +"\n";
         }
-        return cadeA;
+        return consola;
     }
 
 

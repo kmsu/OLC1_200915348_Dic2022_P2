@@ -96,7 +96,7 @@ caracter     (\'({escape2}|{aceptada2})\')
 
 {id}                    return 'Id';
 {cadena}                return 'Cadena';
-{caracter}              return 'Chaar';
+{caracter}              return 'Caracter';
 {Decimal}               return 'Decimal';
 {D}                     return 'Entero';
 
@@ -194,10 +194,10 @@ TIPO
 EXPRESION
     //ARITMETICOS
     : EXPRESION 'Mas' EXPRESION   {$$ = new aritmetica.default($1, '+', $3, this._$.first_line, this._$.first_column);}
-    | EXPRESION 'Menos' EXPRESION {$$ = $1 - $3;}
-    | EXPRESION 'Por' EXPRESION   {$$ = $1 * $3;}
-    | EXPRESION 'Div' EXPRESION   {$$ = $1 / $3;}
-    | EXPRESION 'Mod' EXPRESION   {$$ = $1 % $3;}
+    | EXPRESION 'Menos' EXPRESION {$$ = new aritmetica.default($1, '-', $3, this._$.first_line, this._$.first_column);}
+    | EXPRESION 'Por' EXPRESION   {$$ = new aritmetica.default($1, '*', $3, this._$.first_line, this._$.first_column);}
+    | EXPRESION 'Div' EXPRESION   {$$ = new aritmetica.default($1, '/', $3, this._$.first_line, this._$.first_column);}
+    | EXPRESION 'Mod' EXPRESION   {$$ = new aritmetica.default($1, '%', $3, this._$.first_line, this._$.first_column);}
     //RELACIONALES
     | EXPRESION 'MayorQue' EXPRESION    {$$ = $1 > $3;}
     | EXPRESION 'MenorQue' EXPRESION    {$$ = $1 < $3;}
@@ -210,15 +210,16 @@ EXPRESION
     | EXPRESION 'Or' EXPRESION   {$$ = $1 || $3;}
     | 'Not' EXPRESION   {$$ = !$2;}
     //UNARIOS
-    | 'Menos' Entero %prec UMenos {$$ = -$2;}
+    | 'Menos' Entero %prec UMenos {$$ = new aritmetica.default(null, 'u', $3, this._$.first_line, this._$.first_column);}
     | 'Menos' Decimal %prec UMenos {$$ = -$2;}
+    
     //AGRUPACION 
     | ParA EXPRESION ParC {$$ = $2;}
     //TERNARIO
     | EXPRESION Interrogacion EXPRESION DosPuntos EXPRESION { $$ = $1 + "?" + $3 + ":" + $5; }
     //TERMINALES
     | Cadena { $$ = new cadena.default($1, this._$.first_line, this._$.first_column); }
-    | Caracter { $$ = new chhar.default($1.charCodeAt(0), this._$.first_line, this._$.first_column); }
+    | Caracter { $$ = new chhar.default($1.charCodeAt(1), this._$.first_line, this._$.first_column); }
     | Entero { $$ = new numero.default(Number($1), this._$.first_line, this._$.first_column); }
     | Decimal { $$ = new decimal.default(Number($1), this._$.first_line, this._$.first_column); }
     | Verdadero { $$ = new booleano.default(true, this._$.first_line, this._$.first_column); }

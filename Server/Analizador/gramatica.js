@@ -114,16 +114,16 @@ case 31:
 this.$ = new aritmetica.default($$[$0-2], '+', $$[$0], this._$.first_line, this._$.first_column);
 break;
 case 32:
-this.$ = $$[$0-2] - $$[$0];
+this.$ = new aritmetica.default($$[$0-2], '-', $$[$0], this._$.first_line, this._$.first_column);
 break;
 case 33:
-this.$ = $$[$0-2] * $$[$0];
+this.$ = new aritmetica.default($$[$0-2], '*', $$[$0], this._$.first_line, this._$.first_column);
 break;
 case 34:
-this.$ = $$[$0-2] / $$[$0];
+this.$ = new aritmetica.default($$[$0-2], '/', $$[$0], this._$.first_line, this._$.first_column);
 break;
 case 35:
-this.$ = $$[$0-2] % $$[$0];
+this.$ = new aritmetica.default($$[$0-2], '%', $$[$0], this._$.first_line, this._$.first_column);
 break;
 case 36:
 this.$ = $$[$0-2] > $$[$0];
@@ -152,7 +152,10 @@ break;
 case 44:
 this.$ = !$$[$0];
 break;
-case 45: case 46:
+case 45:
+this.$ = new aritmetica.default(null, 'u', $$[$01], this._$.first_line, this._$.first_column);
+break;
+case 46:
 this.$ = -$$[$0];
 break;
 case 47:
@@ -165,7 +168,7 @@ case 49:
  this.$ = new cadena.default($$[$0], this._$.first_line, this._$.first_column); 
 break;
 case 50:
- this.$ = new chhar.default($$[$0].charCodeAt(0), this._$.first_line, this._$.first_column); 
+ this.$ = new chhar.default($$[$0].charCodeAt(1), this._$.first_line, this._$.first_column); 
 break;
 case 51:
  this.$ = new numero.default(Number($$[$0]), this._$.first_line, this._$.first_column); 
@@ -937,7 +940,7 @@ case 52:return 29;
 break;
 case 53:return 55;
 break;
-case 54:return 'Chaar';
+case 54:return 56;
 break;
 case 55:return 50;
 break;

@@ -57,11 +57,13 @@ var Aritmetica = /** @class */ (function () {
     Aritmetica.prototype.ejecutarExpresion = function (tabla) {
         var symIzq = this.izquierdo.ejecutarExpresion(tabla);
         var symDer = this.derecho.ejecutarExpresion(tabla);
+        var tipo_resultante;
+        var resultado;
         switch (this.operador) {
             case '+':
-                var tipo_resultante = this.matrizSuma[symIzq.getTipoDato()][symDer.getTipoDato()];
+                tipo_resultante = this.matrizSuma[symIzq.getTipoDato()][symDer.getTipoDato()];
                 if (tipo_resultante == TipoDato_1.TipoDato.ENTERO || tipo_resultante == TipoDato_1.TipoDato.DECIMAL) {
-                    var resultado = Number(symIzq.getValor()) + Number(symDer.getValor());
+                    resultado = Number(symIzq.getValor()) + Number(symDer.getValor());
                     return new Simbolo_1["default"](tipo_resultante, resultado, this.linea, this.columna);
                 }
                 else if (tipo_resultante == TipoDato_1.TipoDato.CADENA) {
@@ -79,25 +81,54 @@ var Aritmetica = /** @class */ (function () {
                     else {
                         cadDer = symDer.getValor().toString();
                     }
-                    var resultado = cadIzq.concat(cadDer);
+                    resultado = cadIzq.concat(cadDer);
                     return new Simbolo_1["default"](tipo_resultante, resultado, this.linea, this.columna);
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
                 }
             case '-':
-                if (this.izquierdo == null) {
-                    //return UnarioResta;
+                tipo_resultante = this.matrizResta[symIzq.getTipoDato()][symDer.getTipoDato()];
+                if (tipo_resultante == TipoDato_1.TipoDato.ENTERO || tipo_resultante == TipoDato_1.TipoDato.DECIMAL) {
+                    resultado = Number(symIzq.getValor()) - Number(symDer.getValor());
+                    return new Simbolo_1["default"](tipo_resultante, resultado, this.linea, this.columna);
                 }
                 else {
-                    //return Resta;
+                    //invalido, error semantico, no se puede sumar estos tipos de datos
+                    console.log("semantico * ");
                 }
-            case "*":
-            //return Multiplicacion;
+            case 'u':
+            //unario resta
+            case '*':
+                tipo_resultante = this.matrizMultiplicacion[symIzq.getTipoDato()][symDer.getTipoDato()];
+                if (tipo_resultante == TipoDato_1.TipoDato.ENTERO || tipo_resultante == TipoDato_1.TipoDato.DECIMAL) {
+                    resultado = Number(symIzq.getValor()) * Number(symDer.getValor());
+                    return new Simbolo_1["default"](tipo_resultante, resultado, this.linea, this.columna);
+                }
+                else {
+                    //invalido, error semantico, no se puede sumar estos tipos de datos
+                    console.log("semantico * ");
+                }
             case '/':
-            //return Division;
+                tipo_resultante = this.matrizDivision[symIzq.getTipoDato()][symDer.getTipoDato()];
+                if (tipo_resultante == TipoDato_1.TipoDato.DECIMAL) {
+                    resultado = Number(symIzq.getValor()) / Number(symDer.getValor());
+                    return new Simbolo_1["default"](tipo_resultante, resultado, this.linea, this.columna);
+                }
+                else {
+                    //invalido, error semantico, no se puede sumar estos tipos de datos
+                    console.log("semantico * ");
+                }
             case '%':
-            //return modulo;
+                tipo_resultante = this.matrizDivision[symIzq.getTipoDato()][symDer.getTipoDato()];
+                if (tipo_resultante == TipoDato_1.TipoDato.DECIMAL) {
+                    resultado = Number(symIzq.getValor()) % Number(symDer.getValor());
+                    return new Simbolo_1["default"](tipo_resultante, resultado, this.linea, this.columna);
+                }
+                else {
+                    //invalido, error semantico, no se puede sumar estos tipos de datos
+                    console.log("semantico * ");
+                }
             default:
             //return error semantico;
         }
