@@ -30,7 +30,6 @@ var TablaSimbolos = /** @class */ (function () {
         for (var _i = 0, _a = this.listaSimbolos; _i < _a.length; _i++) {
             var symbol = _a[_i];
             var temp = JSON.parse('{"no":' + cont + ', "id": "' + symbol.getId() + '", "TipoDato":' + symbol.getTipoDato() + ', "valor": "' + symbol.getValor().toString() + '", "entorno": "' + this.nombre + '", "linea": ' + symbol.getLinea() + ', "columna": ' + symbol.getColumna() + ' }');
-            console.log(temp);
             lista1.push(temp);
             cont++;
         }

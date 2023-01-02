@@ -49,7 +49,6 @@ export default class TablaSimbolos {
         let cont = 1;
         for(let symbol of this.listaSimbolos){
             let temp:reporteJson = JSON.parse('{"no":'+cont+', "id": "' + symbol.getId()+ '", "TipoDato":'+ symbol.getTipoDato()  + ', "valor": "'+ symbol.getValor().toString()+ '", "entorno": "'+ this.nombre + '", "linea": '+ symbol.getLinea()+', "columna": ' + symbol.getColumna()+' }');
-            console.log(temp);
             lista1.push(temp);
             cont++;
         }

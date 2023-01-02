@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var Simbolo_1 = require("./TablaSimbolos/Simbolo");
+var TipoDato_1 = require("./TablaSimbolos/TipoDato");
 var Declaracion = /** @class */ (function () {
     function Declaracion(tipo, id, valor, linea, columna) {
         this.tipoDato = tipo;
@@ -14,19 +15,35 @@ var Declaracion = /** @class */ (function () {
         var symValor;
         if (this.valor != null) {
             symValor = this.valor.ejecutarExpresion(tabla);
-            console.log("El valor de la expresion es: " + symValor.getValor().toString());
-            console.log("El tipo de la expresion es: " + symValor.getTipoDato());
+            //console.log("El valor de la expresion es: " + symValor.getValor().toString());
+            //console.log("El tipo de la expresion es: " + symValor.getTipoDato());
         }
         else {
-            symValor = new Simbolo_1["default"](symTipo.getTipoDato(), null, -1, -1); //-1, -1 porque no existe en el codigo de entrada
-            console.log("");
+            if (this.valor == null) {
+                switch (symTipo.getTipoDato()) {
+                    case TipoDato_1.TipoDato.CADENA:
+                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), " ", -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                        break;
+                    case TipoDato_1.TipoDato.CARACTER:
+                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), ' ', -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                        break;
+                    case TipoDato_1.TipoDato.BOOLEANO:
+                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), false, -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                        break;
+                    case TipoDato_1.TipoDato.ENTERO:
+                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), 0, -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                        break;
+                    default:
+                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), 0.0, -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                }
+            }
         }
         for (var _i = 0, _a = this.identificador; _i < _a.length; _i++) {
             var id = _a[_i];
             if (tabla.buscarSimbolo(id) == null) {
                 //comparar el tipo de variable con el tipo resultante de la expresion a asignar
-                console.log("tipo dato variable: " + symTipo.getTipoDato());
-                console.log("tipo dato expresion: " + symValor.getTipoDato());
+                //console.log("tipo dato variable: " + symTipo.getTipoDato());
+                //console.log("tipo dato expresion: " + symValor.getTipoDato());
                 if (symTipo.getTipoDato() == symValor.getTipoDato()) {
                     //set id al simbolo y agrega a la lista
                     var temp = symValor.copiarSimbolo();
@@ -34,7 +51,7 @@ var Declaracion = /** @class */ (function () {
                     temp.setLinea(this.linea);
                     temp.setColumna(this.columna);
                     tabla.addSimbol(temp);
-                    console.log("se agrego la variable " + id + " en la tabla de simbolos");
+                    //console.log("se agrego la variable " + id + " en la tabla de simbolos");
                 }
                 else {
                     //error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar
