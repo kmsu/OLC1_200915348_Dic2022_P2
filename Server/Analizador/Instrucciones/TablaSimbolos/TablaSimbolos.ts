@@ -1,4 +1,15 @@
 import Simbolo from "./Simbolo";
+import { TipoDato } from "./TipoDato";
+
+interface reporteJson{
+    no: number;
+    id: string;
+    tipoDato: TipoDato;
+    valor: string;
+    entorno: string;
+    linea: number;
+    columna: number;
+}
 
 export default class TablaSimbolos {
 
@@ -18,11 +29,9 @@ export default class TablaSimbolos {
 
     buscarSimbolo(id:string):Simbolo{
         let simboloActual;
-        console.log("numero elementos: " + this.listaSimbolos.length);
         for(let symbol of this.listaSimbolos){
             if(symbol.getId() == id){
                 simboloActual = symbol;
-                console.log("Se encontro el simbolo");
                 break;
             }
         }
@@ -33,5 +42,24 @@ export default class TablaSimbolos {
         }
 
         return simboloActual;
+    }
+
+    reporteSymTS(){
+        let lista1 = new Array<reporteJson>;
+        let cont = 1;
+        for(let symbol of this.listaSimbolos){
+            let temp:reporteJson = JSON.parse('{"no":'+cont+', "id": "' + symbol.getId()+ '", "TipoDato":'+ symbol.getTipoDato()  + ', "valor": "'+ symbol.getValor().toString()+ '", "entorno": "'+ this.nombre + '", "linea": '+ symbol.getLinea()+', "columna": ' + symbol.getColumna()+' }');
+            console.log(temp);
+            lista1.push(temp);
+            cont++;
+        }
+
+        if (this.padre != null){
+            let lista2 = this.padre.reporteSymTS();
+            for (let symbol of lista2){
+                lista1.push(symbol);
+            }
+        }
+        return lista1;
     }
 }

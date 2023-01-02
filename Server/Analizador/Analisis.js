@@ -24,6 +24,13 @@ class Analisis {
         this.errores.push({ Tipo:tipo, Linea:fila, Columna:columna, Descripcion:descripcion })
     }
 
+    getReporteTS(){
+        if(this.tabla != null){
+            return this.tabla.reporteSymTS();
+        }
+        return null;
+    }
+
     putArbol(arbol){
         this.arbol= arbol;
     }

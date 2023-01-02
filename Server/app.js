@@ -18,10 +18,12 @@ app.listen(8080, function () {
 
 var resultado = '';
 var reportError;
+var reporteTS;
 app.post('/editor', function(req, res) {
   var analisis =  gramatica.parse(req.body.dato);
   resultado = analisis.getConsola(); 
   reportError = analisis.getReporte();
+  reporteTS = analisis.getReporteTS();
   //resultado = gramatica.parse(req.body.dato);
   /*
   resultado = '';
@@ -39,4 +41,8 @@ app.get('/getAnalisis', function(req, res) {
 
 app.get('/getErrores',function(req, res){
   res.json({reporte: reportError})
+})
+
+app.get('/getTS',function(req, res){
+  res.json({reporte: reporteTS})
 })

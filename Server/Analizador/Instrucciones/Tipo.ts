@@ -20,7 +20,6 @@ export default class Tipo implements Instruccion{
     }
 
     ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
-        console.log("tipoDato de la variable: " + this.tipo);
         return new Simbolo(this.tipo, null, this.linea, this.columna); //simbolo vacio se utiliza para representar el tipo de la variable a declarar
     }
     

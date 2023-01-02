@@ -11,7 +11,6 @@ var Tipo = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Tipo.prototype.ejecutarExpresion = function (tabla) {
-        console.log("tipoDato de la variable: " + this.tipo);
         return new Simbolo_1["default"](this.tipo, null, this.linea, this.columna); //simbolo vacio se utiliza para representar el tipo de la variable a declarar
     };
     Tipo.prototype.dibujarAST = function (nodoPadre) {

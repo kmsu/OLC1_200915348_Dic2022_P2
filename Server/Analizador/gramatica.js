@@ -503,8 +503,8 @@ _handle_error:
     return true;
 }};
 
-    const numero = require('../Analizador/Instrucciones/ExpresionesTerminales/Numero');
     const decimal = require('../Analizador/Instrucciones/ExpresionesTerminales/Decimal');
+    const numero = require('../Analizador/Instrucciones/ExpresionesTerminales/Numero');
     const booleano = require('../Analizador/Instrucciones/ExpresionesTerminales/Booleano');
     const cadena = require('../Analizador/Instrucciones/ExpresionesTerminales/Cadena');
     const chhar = require('../Analizador/Instrucciones/ExpresionesTerminales/Chhar');

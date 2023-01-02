@@ -12,7 +12,9 @@ var Numero = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Numero.prototype.ejecutarExpresion = function (tabla) {
-        return new Simbolo_1["default"](TipoDato_1.TipoDato.ENTERO, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
+        var sym = new Simbolo_1["default"](TipoDato_1.TipoDato.ENTERO, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
+        console.log("tipo valor del entero es " + sym.getTipoDato());
+        return sym;
     };
     Numero.prototype.dibujarAST = function (nodoPadre) {
         throw new Error("Method not implemented.");

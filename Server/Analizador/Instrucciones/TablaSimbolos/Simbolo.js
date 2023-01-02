@@ -16,8 +16,24 @@ var Simbolo = /** @class */ (function () {
     Simbolo.prototype.getValor = function () {
         return this.valor;
     };
+    Simbolo.prototype.getLinea = function () {
+        return this.linea;
+    };
+    Simbolo.prototype.getColumna = function () {
+        return this.columna;
+    };
     Simbolo.prototype.setId = function (id) {
         this.id = id;
+    };
+    Simbolo.prototype.setLinea = function (linea) {
+        this.linea = linea;
+    };
+    Simbolo.prototype.setColumna = function (columna) {
+        this.columna = columna;
+    };
+    //se copia el simbolo actual y se agrega a la nueva instancia de la variable
+    Simbolo.prototype.copiarSimbolo = function () {
+        return new Simbolo(this.tipoDato, this.valor, this.linea, this.columna);
     };
     return Simbolo;
 }());

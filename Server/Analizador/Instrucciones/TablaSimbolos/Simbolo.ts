@@ -28,7 +28,28 @@ export default class Simbolo {
         return this.valor;
     }
 
+    getLinea():Number{
+        return this.linea;
+    }
+
+    getColumna():Number{
+        return this.columna;
+    }
+
     setId(id:string){
         this.id = id;
+    }
+
+    setLinea(linea:number){
+         this.linea = linea;
+    }
+
+    setColumna(columna:number){
+         this.columna = columna;
+    }
+
+    //se copia el simbolo actual y se agrega a la nueva instancia de la variable
+    copiarSimbolo(){
+        return new Simbolo(this.tipoDato, this.valor, this.linea, this.columna);
     }
 }

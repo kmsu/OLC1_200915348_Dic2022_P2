@@ -32,5 +32,8 @@ export class DataService {
     return this.http.get(`${this.URL}/getErrores`);
   } 
  
+  getTS(){
+    return this.http.get(`${this.URL}/getTS`);
+  } 
   
 }

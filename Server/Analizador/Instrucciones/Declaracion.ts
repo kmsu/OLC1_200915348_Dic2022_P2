@@ -39,8 +39,12 @@ export default class Declaracion implements Instruccion{
                 console.log("tipo dato expresion: " + symValor.getTipoDato());
                 if(symTipo.getTipoDato() == symValor.getTipoDato()){
                     //set id al simbolo y agrega a la lista
-                    symValor.setId(id);
-                    tabla.addSimbol(symValor);
+                    let temp = symValor.copiarSimbolo();
+                    temp.setId(id);
+                    temp.setLinea(this.linea);
+                    temp.setColumna(this.columna);
+                    tabla.addSimbol(temp);
+                    console.log("se agrego la variable " + id + " en la tabla de simbolos");
                 }else{
                     //error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar
                     console.log("error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar")
