@@ -21,7 +21,7 @@ var reportError;
 app.post('/editor', function(req, res) {
   var analisis =  gramatica.parse(req.body.dato);
   resultado = analisis.getConsola(); 
-  //reportError = Arbol.getReporte();
+  reportError = analisis.getReporte();
   //resultado = gramatica.parse(req.body.dato);
   /*
   resultado = '';

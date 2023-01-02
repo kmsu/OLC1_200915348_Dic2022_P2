@@ -105,7 +105,7 @@ caracter     (\'({escape2}|{aceptada2})\')
 
 <<EOF>>                 return 'EOF'
 
-.                       { console.error('este es un error lexico: ' + yytext + ', en la linea: ' + yylloc.first_line + ', en la columna: ' + yylloc.first_column+1); }
+.                       {console.log("error lexico"); analisis.putError("Lexico", yylloc.first_line+"", yylloc.first_column+1+"", "Caracter no valido: " + yytext); }
 
 /lex
 
@@ -118,7 +118,12 @@ caracter     (\'({escape2}|{aceptada2})\')
     const chhar = require('../Analizador/Instrucciones/ExpresionesTerminales/Chhar');
     const id = require('../Analizador/Instrucciones/ExpresionesTerminales/Identificador');
 
+    const TipoDato = require('../Analizador/Instrucciones/TablaSimbolos/TipoDato').TipoDato;
+    const classTipo = require('../Analizador/Instrucciones/Tipo');
+
     const aritmetica = require('../Analizador/Instrucciones/OperacionesExpresiones/Aritmetica');
+
+    const declaracion = require('../Analizador/Instrucciones/Declaracion');
 
     const classPrint = require('../Analizador/Instrucciones/Print');
 
@@ -169,8 +174,8 @@ INSTRUCCION
 
 /* int var1, var2, var3; */
 DECLARACION
-    :TIPO LISTAVARIABLES Igual EXPRESION PComa { $$ = $4; }
-    |TIPO LISTAVARIABLES PComa { console.log("reconocio una declaracion sin expresion"); }
+    :TIPO LISTAVARIABLES Igual EXPRESION PComa { $$ = new declaracion.default($1, $2, $4, this._$.first_line, this._$.first_column); }
+    |TIPO LISTAVARIABLES PComa                 { $$ = new declaracion.default($1, $2, null, this._$.first_line, this._$.first_column); }
 ;
 
 ASIGNACION
@@ -184,11 +189,11 @@ LISTAVARIABLES
 ;
 
 TIPO
-    :resString {$$ = $1;}
-    |resChar {$$ = $1;}
-    |resBool {$$ = $1;}
-    |resInt {$$ = $1;}
-    |resDouble {$$ = $1;}
+    :resString  {$$ = new classTipo.default(TipoDato.CADENA, this._$.first_line, this._$.first_column);}
+    |resChar    {$$ = new classTipo.default(TipoDato.CARACTER, this._$.first_line, this._$.first_column);}
+    |resBool    {$$ = new classTipo.default(TipoDato.BOOLEANO, this._$.first_line, this._$.first_column);}
+    |resInt     {$$ = new classTipo.default(TipoDato.ENTERO, this._$.first_line, this._$.first_column);}
+    |resDouble  {$$ = new classTipo.default(TipoDato.DECIMAL, this._$.first_line, this._$.first_column);}
 ;
 
 EXPRESION
@@ -210,15 +215,13 @@ EXPRESION
     | EXPRESION 'Or' EXPRESION   {$$ = $1 || $3;}
     | 'Not' EXPRESION   {$$ = !$2;}
     //UNARIOS
-    | 'Menos' Entero %prec UMenos {$$ = new aritmetica.default(null, 'u', $3, this._$.first_line, this._$.first_column);}
-    | 'Menos' Decimal %prec UMenos {$$ = -$2;}
-    
+    | 'Menos' EXPRESION %prec UMenos {$$ = new aritmetica.default($2, 'u', $2, this._$.first_line, this._$.first_column);}
     //AGRUPACION 
     | ParA EXPRESION ParC {$$ = $2;}
     //TERNARIO
     | EXPRESION Interrogacion EXPRESION DosPuntos EXPRESION { $$ = $1 + "?" + $3 + ":" + $5; }
     //TERMINALES
-    | Cadena { $$ = new cadena.default($1, this._$.first_line, this._$.first_column); }
+    | Cadena { $$ = new cadena.default($1.substr(1, yyleng - 2), this._$.first_line, this._$.first_column); }
     | Caracter { $$ = new chhar.default($1.charCodeAt(1), this._$.first_line, this._$.first_column); }
     | Entero { $$ = new numero.default(Number($1), this._$.first_line, this._$.first_column); }
     | Decimal { $$ = new decimal.default(Number($1), this._$.first_line, this._$.first_column); }

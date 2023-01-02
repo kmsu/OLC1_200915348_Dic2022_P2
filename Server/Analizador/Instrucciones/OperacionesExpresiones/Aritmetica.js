@@ -57,7 +57,7 @@ var Aritmetica = /** @class */ (function () {
     Aritmetica.prototype.ejecutarExpresion = function (tabla) {
         var symIzq = this.izquierdo.ejecutarExpresion(tabla);
         var symDer = this.derecho.ejecutarExpresion(tabla);
-        var tipo_resultante;
+        var tipo_resultante = TipoDato_1.TipoDato.INVALIDO;
         var resultado;
         switch (this.operador) {
             case '+':
@@ -86,6 +86,8 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
+                    console.log("semantico + ");
+                    break;
                 }
             case '-':
                 tipo_resultante = this.matrizResta[symIzq.getTipoDato()][symDer.getTipoDato()];
@@ -95,10 +97,19 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico * ");
+                    console.log("semantico - ");
+                    break;
                 }
             case 'u':
-            //unario resta
+                if (symDer.getTipoDato() == TipoDato_1.TipoDato.ENTERO || symDer.getTipoDato() == TipoDato_1.TipoDato.DECIMAL) {
+                    resultado = Number(symDer.getValor()) * (-1);
+                    return new Simbolo_1["default"](symDer.getTipoDato(), resultado, this.linea, this.columna);
+                }
+                else {
+                    //invalido, error semantico, no se puede sumar estos tipos de datos
+                    console.log("semantico u ");
+                    break;
+                }
             case '*':
                 tipo_resultante = this.matrizMultiplicacion[symIzq.getTipoDato()][symDer.getTipoDato()];
                 if (tipo_resultante == TipoDato_1.TipoDato.ENTERO || tipo_resultante == TipoDato_1.TipoDato.DECIMAL) {
@@ -108,6 +119,7 @@ var Aritmetica = /** @class */ (function () {
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
                     console.log("semantico * ");
+                    break;
                 }
             case '/':
                 tipo_resultante = this.matrizDivision[symIzq.getTipoDato()][symDer.getTipoDato()];
@@ -117,7 +129,8 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico * ");
+                    console.log("semantico / ");
+                    break;
                 }
             case '%':
                 tipo_resultante = this.matrizDivision[symIzq.getTipoDato()][symDer.getTipoDato()];
@@ -127,12 +140,14 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico * ");
+                    console.log("semantico % ");
+                    break;
                 }
             default:
-            //return error semantico;
+                //return error semantico;
+                console.log("semantico no se reconoce la operacion ");
         }
-        throw new Error("Method not implemented.");
+        return new Simbolo_1["default"](tipo_resultante, "Invalido", this.linea, this.columna);
     };
     Aritmetica.prototype.dibujarAST = function (nodoPadre) {
         throw new Error("Method not implemented.");

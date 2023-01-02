@@ -1,6 +1,7 @@
 import { Instruccion } from "./Instruccion";
 import Simbolo from "./TablaSimbolos/Simbolo";
 import TablaSimbolos from "./TablaSimbolos/TablaSimbolos";
+import { TipoDato } from "./TablaSimbolos/TipoDato";
 
 
 export default class Print implements Instruccion{
@@ -17,7 +18,14 @@ export default class Print implements Instruccion{
 
     ejecutarInstruccion(tabla: TablaSimbolos): string {
         let symExpresion = this.expresion.ejecutarExpresion(tabla);
-        let consola = symExpresion.getValor().toString();
+        let consola = "";
+        if(symExpresion.getTipoDato() != TipoDato.INVALIDO){
+            if(symExpresion.getTipoDato() == TipoDato.CARACTER){
+                consola = "'" + String.fromCharCode(Number(symExpresion.getValor())) + "'";
+            }else{
+                consola = symExpresion.getValor().toString();
+            }
+        }
         return consola;
     }
 

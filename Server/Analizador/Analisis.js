@@ -35,6 +35,7 @@ class Analisis {
  
     getConsola(){
         var consola = "";
+        this.tabla = new TablaSimbolos(null, "Global");
         for(var i=0; i<this.arbol.length; i++){
             consola += this.arbol[i].ejecutarInstruccion(this.tabla) +"\n";
         }

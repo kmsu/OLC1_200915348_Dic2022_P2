@@ -9,6 +9,7 @@ export default class TablaSimbolos {
     constructor(padre:TablaSimbolos, nombre:string){
         this.padre = padre;
         this.nombre = nombre;
+        this.listaSimbolos = new Array<Simbolo>;
     }
 
     addSimbol(simbolo:Simbolo){
@@ -17,10 +18,11 @@ export default class TablaSimbolos {
 
     buscarSimbolo(id:string):Simbolo{
         let simboloActual;
-
+        console.log("numero elementos: " + this.listaSimbolos.length);
         for(let symbol of this.listaSimbolos){
             if(symbol.getId() == id){
                 simboloActual = symbol;
+                console.log("Se encontro el simbolo");
                 break;
             }
         }
