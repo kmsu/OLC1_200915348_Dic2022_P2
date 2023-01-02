@@ -2,7 +2,7 @@
 %options case-insensitive
 %option yylineno
 
-Decimal [0-9]+("."[0-9]+)?\b 
+Decimal [0-9]+("."[0-9]+)\b 
 D [0-9]+\b
 id [a-zñA-ZÑ_][a-zñA-ZÑ0-9_]*
 

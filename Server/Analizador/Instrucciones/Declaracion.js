@@ -15,8 +15,6 @@ var Declaracion = /** @class */ (function () {
         var symValor;
         if (this.valor != null) {
             symValor = this.valor.ejecutarExpresion(tabla);
-            //console.log("El valor de la expresion es: " + symValor.getValor().toString());
-            //console.log("El tipo de la expresion es: " + symValor.getTipoDato());
         }
         else {
             if (this.valor == null) {
@@ -42,8 +40,6 @@ var Declaracion = /** @class */ (function () {
             var id = _a[_i];
             if (tabla.buscarSimbolo(id) == null) {
                 //comparar el tipo de variable con el tipo resultante de la expresion a asignar
-                //console.log("tipo dato variable: " + symTipo.getTipoDato());
-                //console.log("tipo dato expresion: " + symValor.getTipoDato());
                 if (symTipo.getTipoDato() == symValor.getTipoDato()) {
                     //set id al simbolo y agrega a la lista
                     var temp = symValor.copiarSimbolo();
@@ -51,7 +47,6 @@ var Declaracion = /** @class */ (function () {
                     temp.setLinea(this.linea);
                     temp.setColumna(this.columna);
                     tabla.addSimbol(temp);
-                    //console.log("se agrego la variable " + id + " en la tabla de simbolos");
                 }
                 else {
                     //error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar

@@ -21,7 +21,6 @@ export default class Numero implements Instruccion {
 
     ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
         let sym = new Simbolo(TipoDato.ENTERO, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
-        console.log("tipo valor del entero es " + sym.getTipoDato());
         return sym;
     }
     

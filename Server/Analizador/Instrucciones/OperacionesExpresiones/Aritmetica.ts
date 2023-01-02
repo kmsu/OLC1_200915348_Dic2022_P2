@@ -107,7 +107,7 @@ export default class Aritmetica implements Instruccion{
                     console.log("semantico + ");
                     break;
                 }
-
+                
             case '-':
                 tipo_resultante = this.matrizResta[symIzq.getTipoDato()][symDer.getTipoDato()];
                 if(tipo_resultante == TipoDato.ENTERO || tipo_resultante == TipoDato.DECIMAL ){
@@ -150,6 +150,7 @@ export default class Aritmetica implements Instruccion{
                     console.log("semantico / ");
                     break;
                 }
+                
             case '%':
                 tipo_resultante = this.matrizDivision[symIzq.getTipoDato()][symDer.getTipoDato()];
                 if(tipo_resultante == TipoDato.DECIMAL ){
