@@ -126,8 +126,10 @@ caracter     (\'({escape2}|{aceptada2})\')
 
     const declaracion = require('../Analizador/Instrucciones/Declaracion');
     const asignacion = require('../Analizador/Instrucciones/Asignacion');
-
     const classPrint = require('../Analizador/Instrucciones/Print');
+
+    const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
+    const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');
 
     const classAnalisis = require('./Analisis');
     var analisis = new classAnalisis;
@@ -241,13 +243,12 @@ INCREMENTALES
 ;
 
 IF
-    //:resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classIf.default($3, $6, null); }
-    :resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC ELSE { $$ = "if " + $3 + " ins " + $6 + " else " +$8; }
+    :resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC ELSE { $$ = new classIf.default($3, $6, $8, this._$.first_line, this._$.first_column); }
 ;
 
 ELSE
-    :resElse resIf ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC ELSE { $$ = "exp " + $4 + " ins " + " else " +$7; }
-    |resElse LlaveA INSTRUCCIONES LlaveC { $$ = $3; }
+    :resElse IF { $$ = $2;}
+    |resElse LlaveA INSTRUCCIONES LlaveC { $$ = new classElse.default($3, this._$.first_line, this._$.first_column); }
     |
 ;
 
