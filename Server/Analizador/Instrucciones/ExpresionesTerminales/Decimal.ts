@@ -21,7 +21,6 @@ export default class Decimal implements Instruccion {
 
     ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
         let sym = new Simbolo(TipoDato.DECIMAL, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
-        console.log("tipo valor del decimal es " + sym.getTipoDato());
         return sym;
     }
     

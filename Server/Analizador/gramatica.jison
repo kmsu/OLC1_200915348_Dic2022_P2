@@ -117,6 +117,7 @@ caracter     (\'({escape2}|{aceptada2})\')
     const cadena = require('../Analizador/Instrucciones/ExpresionesTerminales/Cadena');
     const chhar = require('../Analizador/Instrucciones/ExpresionesTerminales/Chhar');
     const id = require('../Analizador/Instrucciones/ExpresionesTerminales/Identificador');
+    const incremental = require('../Analizador/Instrucciones/ExpresionesTerminales/Incremental');
 
     const TipoDato = require('../Analizador/Instrucciones/TablaSimbolos/TipoDato').TipoDato;
     const classTipo = require('../Analizador/Instrucciones/Tipo');
@@ -124,6 +125,7 @@ caracter     (\'({escape2}|{aceptada2})\')
     const aritmetica = require('../Analizador/Instrucciones/OperacionesExpresiones/Aritmetica');
 
     const declaracion = require('../Analizador/Instrucciones/Declaracion');
+    const asignacion = require('../Analizador/Instrucciones/Asignacion');
 
     const classPrint = require('../Analizador/Instrucciones/Print');
 
@@ -164,12 +166,13 @@ INSTRUCCION
     |CONTINUE { $$ = $1; }
     |RETURN { $$ = $1; }
     |PRINT { $$ = $1; }
+    |INCREMENTALES PComa { $$ = $1; }
     |METODO { $$ = $1; }
     |FUNCION { $$ = $1; }
     |LLAMADAFUNCION PComa{ $$ = $1; }
     |VECTORES { $$ = $1; }
     |LLAMADAVECTOR PComa{ $$ = $1; }
-    |error { console.error("Error Sintactico", this._$.first_line, this._$.first_column,"Token no valido: " + yytext); }
+    |error { console.error("Error Sintactico", this._$.first_line, this._$.first_column,"Token no valido: " + yytext); analisis.putError("Sintactico", this._$.first_line, this._$.first_column, "Token Inesperado: " + yytext); $$ = null; }
 ;
 
 /* int var1, var2, var3; */
@@ -179,7 +182,7 @@ DECLARACION
 ;
 
 ASIGNACION
-    :LISTAVARIABLES Igual EXPRESION PComa { $$ = $3; }
+    :LISTAVARIABLES Igual EXPRESION PComa { $$ = new asignacion.default($1, $3, this._$.first_line, this._$.first_column); }
 ;
 
 /* var1, var2, var3  */
@@ -233,8 +236,8 @@ EXPRESION
 ;
 
 INCREMENTALES
-    :Id Incremento {$$ = $1+$2;}
-    |Id Decremento {$$ = $1+$2;}
+    :Id Incremento {$$ = new incremental.default($1, '++', this._$.first_line, this._$.first_column);}
+    |Id Decremento {$$ = new incremental.default($1, '--', this._$.first_line, this._$.first_column);}
 ;
 
 IF

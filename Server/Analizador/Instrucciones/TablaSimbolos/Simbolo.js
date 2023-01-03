@@ -25,6 +25,9 @@ var Simbolo = /** @class */ (function () {
     Simbolo.prototype.setId = function (id) {
         this.id = id;
     };
+    Simbolo.prototype.setValor = function (valor) {
+        this.valor = valor;
+    };
     Simbolo.prototype.setLinea = function (linea) {
         this.linea = linea;
     };

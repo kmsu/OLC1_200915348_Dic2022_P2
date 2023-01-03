@@ -28,16 +28,20 @@ export default class Simbolo {
         return this.valor;
     }
 
-    getLinea():Number{
+    getLinea():number{
         return this.linea;
     }
 
-    getColumna():Number{
+    getColumna():number{
         return this.columna;
     }
 
     setId(id:string){
         this.id = id;
+    }
+
+    setValor(valor:any){
+        this.valor = valor;
     }
 
     setLinea(linea:number){

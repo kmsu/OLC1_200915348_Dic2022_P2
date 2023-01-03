@@ -12,7 +12,8 @@ var Decimal = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Decimal.prototype.ejecutarExpresion = function (tabla) {
-        return new Simbolo_1["default"](TipoDato_1.TipoDato.DECIMAL, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
+        var sym = new Simbolo_1["default"](TipoDato_1.TipoDato.DECIMAL, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
+        return sym;
     };
     Decimal.prototype.dibujarAST = function (nodoPadre) {
         throw new Error("Method not implemented.");

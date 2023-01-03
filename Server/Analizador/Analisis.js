@@ -42,10 +42,19 @@ class Analisis {
  
     getConsola(){
         var consola = "";
-        this.tabla = new TablaSimbolos(null, "Global");
-        for(var i=0; i<this.arbol.length; i++){
-            consola += this.arbol[i].ejecutarInstruccion(this.tabla) +"\n";
-        }
+        //if(this.errores.length == 0){
+            this.tabla = new TablaSimbolos(null, "Global");
+            for(let nodo of this.arbol){
+                if(nodo != null){
+                    let temp = nodo.ejecutarInstruccion(this.tabla);
+                    if(temp != ""){
+                        consola += temp + "\n";
+                    }
+                }
+            }
+        //}else{
+          //  consola = "Se han encontrado errores lexicos y/o sintacticos";
+        //}
         return consola;
     }
 
