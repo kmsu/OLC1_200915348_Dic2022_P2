@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-var TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
 var If = /** @class */ (function () {
     function If(expresion, cuerpo, cuerpoElse, linea, columna) {
         this.expresion = expresion;
@@ -11,7 +10,7 @@ var If = /** @class */ (function () {
     }
     If.prototype.ejecutarInstruccion = function (tabla) {
         var consola = "";
-        var tablaIf = new TablaSimbolos_1["default"](tabla, "If");
+        var tablaIf = tabla.addSubEntorno("IF");
         for (var _i = 0, _a = this.cuerpo; _i < _a.length; _i++) {
             var instruccion = _a[_i];
             if (instruccion != null) {

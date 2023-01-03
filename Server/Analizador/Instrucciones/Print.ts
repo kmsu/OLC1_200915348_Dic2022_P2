@@ -19,14 +19,17 @@ export default class Print implements Instruccion{
     ejecutarInstruccion(tabla: TablaSimbolos): string {
         let symExpresion = this.expresion.ejecutarExpresion(tabla);
         let consola = "";
-        if(symExpresion.getTipoDato() != TipoDato.INVALIDO){
-            if(symExpresion.getTipoDato() == TipoDato.CARACTER){
-                consola = "'" + String.fromCharCode(Number(symExpresion.getValor())) + "'";
-            }else{
-                consola = symExpresion.getValor().toString();
+        if(symExpresion !=null){
+            if(symExpresion.getTipoDato() != TipoDato.INVALIDO){
+                if(symExpresion.getTipoDato() == TipoDato.CARACTER){
+                    consola = "'" + String.fromCharCode(Number(symExpresion.getValor())) + "'";
+                }else{
+                    consola = symExpresion.getValor().toString();
+                }
             }
         }
         return consola;
+    
     }
 
     ejecutarExpresion(tabla: TablaSimbolos): Simbolo {

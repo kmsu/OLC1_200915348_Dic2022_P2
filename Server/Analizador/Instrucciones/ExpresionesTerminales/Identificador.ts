@@ -1,6 +1,7 @@
 import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
+import { TipoDato } from "../TablaSimbolos/TipoDato";
 
 //Funciona como un getIdentificador
 export default class Identificador implements Instruccion{
@@ -24,6 +25,7 @@ export default class Identificador implements Instruccion{
         if(sym == null){
             //Error semantico, no existe la variable
             console.log("Error semantico, no existe la variable");
+            sym = new Simbolo(TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;
     }

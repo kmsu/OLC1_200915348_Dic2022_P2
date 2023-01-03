@@ -1,5 +1,7 @@
 "use strict";
 exports.__esModule = true;
+var Simbolo_1 = require("../TablaSimbolos/Simbolo");
+var TipoDato_1 = require("../TablaSimbolos/TipoDato");
 //Funciona como un getIdentificador
 var Identificador = /** @class */ (function () {
     function Identificador(valor, linea, columna) {
@@ -15,6 +17,7 @@ var Identificador = /** @class */ (function () {
         if (sym == null) {
             //Error semantico, no existe la variable
             console.log("Error semantico, no existe la variable");
+            sym = new Simbolo_1["default"](TipoDato_1.TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;
     };

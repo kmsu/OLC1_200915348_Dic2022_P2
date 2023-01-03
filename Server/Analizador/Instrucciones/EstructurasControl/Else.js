@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-var TablaSimbolos_1 = require("../TablaSimbolos/TablaSimbolos");
 var Else = /** @class */ (function () {
     function Else(cuerpo, linea, columna) {
         this.cuerpo = cuerpo;
@@ -9,7 +8,7 @@ var Else = /** @class */ (function () {
     }
     Else.prototype.ejecutarInstruccion = function (tabla) {
         var consola = "";
-        var tablaElse = new TablaSimbolos_1["default"](tabla, "Else");
+        var tablaElse = tabla.addSubEntorno("Else");
         for (var _i = 0, _a = this.cuerpo; _i < _a.length; _i++) {
             var instruccion = _a[_i];
             if (instruccion != null) {

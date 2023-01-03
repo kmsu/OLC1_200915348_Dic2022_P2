@@ -104,7 +104,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico + ");
+                    console.log("invalido, error semantico, no se puede sumar estos tipos de datos + ");
                     break;
                 }
                 
@@ -115,7 +115,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico - ");
+                    console.log("invalido, error semantico, no se puede restar estos tipos de datos");
                     break;
                 }
 
@@ -125,7 +125,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(symDer.getTipoDato(), resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico u ");
+                    console.log("invalido, error semantico, Error unario resta ");
                     break;
                 }
 
@@ -136,18 +136,22 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico * ");
+                    console.log("invalido, error semantico, no se puede multiplicar estos tipos de datos");
                     break;
                 }
 
             case '/':
                 tipo_resultante = this.matrizDivision[symIzq.getTipoDato()][symDer.getTipoDato()];
                 if(tipo_resultante == TipoDato.DECIMAL ){
+                    /*let aux = Number(symIzq.getValor()) % Number(symDer.getValor());
+                    if(aux == 0){
+                        tipo_resultante = TipoDato.ENTERO;
+                    }*/
                     resultado = Number(symIzq.getValor()) / Number(symDer.getValor());
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico / ");
+                    console.log("invalido, error semantico, no se puede dividir estos tipos de datos");
                     break;
                 }
                 
@@ -158,7 +162,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("semantico % ");
+                    console.log("invalido, error semantico, no se puede operar modulo entre estos tipos de datos");
                     break;
                 }
             default:

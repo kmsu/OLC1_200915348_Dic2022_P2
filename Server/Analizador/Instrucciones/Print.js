@@ -10,12 +10,14 @@ var Print = /** @class */ (function () {
     Print.prototype.ejecutarInstruccion = function (tabla) {
         var symExpresion = this.expresion.ejecutarExpresion(tabla);
         var consola = "";
-        if (symExpresion.getTipoDato() != TipoDato_1.TipoDato.INVALIDO) {
-            if (symExpresion.getTipoDato() == TipoDato_1.TipoDato.CARACTER) {
-                consola = "'" + String.fromCharCode(Number(symExpresion.getValor())) + "'";
-            }
-            else {
-                consola = symExpresion.getValor().toString();
+        if (symExpresion != null) {
+            if (symExpresion.getTipoDato() != TipoDato_1.TipoDato.INVALIDO) {
+                if (symExpresion.getTipoDato() == TipoDato_1.TipoDato.CARACTER) {
+                    consola = "'" + String.fromCharCode(Number(symExpresion.getValor())) + "'";
+                }
+                else {
+                    consola = symExpresion.getValor().toString();
+                }
             }
         }
         return consola;

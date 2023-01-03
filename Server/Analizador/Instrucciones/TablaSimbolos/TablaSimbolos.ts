@@ -16,15 +16,24 @@ export default class TablaSimbolos {
     private nombre:string;
     private padre:TablaSimbolos;
     private listaSimbolos:Array<Simbolo>;
+    private listaSubEntornos:Array<TablaSimbolos>
 
     constructor(padre:TablaSimbolos, nombre:string){
         this.padre = padre;
         this.nombre = nombre;
         this.listaSimbolos = new Array<Simbolo>;
+        this.listaSubEntornos = new Array<TablaSimbolos>;
     }
 
     addSimbol(simbolo:Simbolo){
         this.listaSimbolos.push(simbolo);
+
+    }
+
+    addSubEntorno(nombre:string):TablaSimbolos{
+        let entorno = new TablaSimbolos(this, nombre);
+        this.listaSubEntornos.push(entorno);
+        return entorno;
     }
 
     buscarSimbolo(id:string):Simbolo{
@@ -53,11 +62,12 @@ export default class TablaSimbolos {
             cont++;
         }
 
-        if (this.padre != null){
-            let lista2 = this.padre.reporteSymTS();
+        for(let entorno of this.listaSubEntornos){
+            let lista2 = entorno.reporteSymTS();
             for (let symbol of lista2){
                 lista1.push(symbol);
             }
+            
         }
         return lista1;
     }

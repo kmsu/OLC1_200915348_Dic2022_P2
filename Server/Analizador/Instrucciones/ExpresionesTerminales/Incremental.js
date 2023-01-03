@@ -1,5 +1,7 @@
 "use strict";
 exports.__esModule = true;
+var Simbolo_1 = require("../TablaSimbolos/Simbolo");
+var TipoDato_1 = require("../TablaSimbolos/TipoDato");
 var Incremental = /** @class */ (function () {
     function Incremental(id, tipo, linea, columna) {
         this.id = id;
@@ -24,6 +26,7 @@ var Incremental = /** @class */ (function () {
         else {
             //Error semantico, no existe la variable
             console.log("Error semantico, no existe la variable");
+            sym = new Simbolo_1["default"](TipoDato_1.TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;
     };

@@ -1,6 +1,7 @@
 import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
+import { TipoDato } from "../TablaSimbolos/TipoDato";
 
 export default class Incremental implements Instruccion{
 
@@ -32,6 +33,7 @@ export default class Incremental implements Instruccion{
         }else{
             //Error semantico, no existe la variable
             console.log("Error semantico, no existe la variable");
+            sym = new Simbolo(TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;
     }

@@ -5,9 +5,15 @@ var TablaSimbolos = /** @class */ (function () {
         this.padre = padre;
         this.nombre = nombre;
         this.listaSimbolos = new Array;
+        this.listaSubEntornos = new Array;
     }
     TablaSimbolos.prototype.addSimbol = function (simbolo) {
         this.listaSimbolos.push(simbolo);
+    };
+    TablaSimbolos.prototype.addSubEntorno = function (nombre) {
+        var entorno = new TablaSimbolos(this, nombre);
+        this.listaSubEntornos.push(entorno);
+        return entorno;
     };
     TablaSimbolos.prototype.buscarSimbolo = function (id) {
         var simboloActual;
@@ -33,10 +39,11 @@ var TablaSimbolos = /** @class */ (function () {
             lista1.push(temp);
             cont++;
         }
-        if (this.padre != null) {
-            var lista2 = this.padre.reporteSymTS();
-            for (var _b = 0, lista2_1 = lista2; _b < lista2_1.length; _b++) {
-                var symbol = lista2_1[_b];
+        for (var _b = 0, _c = this.listaSubEntornos; _b < _c.length; _b++) {
+            var entorno = _c[_b];
+            var lista2 = entorno.reporteSymTS();
+            for (var _d = 0, lista2_1 = lista2; _d < lista2_1.length; _d++) {
+                var symbol = lista2_1[_d];
                 lista1.push(symbol);
             }
         }

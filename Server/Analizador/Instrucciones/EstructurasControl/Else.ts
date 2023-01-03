@@ -16,7 +16,7 @@ export default class Else implements Instruccion{
 
     ejecutarInstruccion(tabla: TablaSimbolos): string {
         let consola = "";
-        let tablaElse = new TablaSimbolos(tabla, "Else");
+        let tablaElse = tabla.addSubEntorno("Else");
         for(let instruccion of this.cuerpo){
             if(instruccion != null){
                 let temp = instruccion.ejecutarInstruccion(tablaElse);

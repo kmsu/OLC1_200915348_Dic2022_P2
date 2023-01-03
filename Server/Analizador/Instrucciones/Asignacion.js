@@ -23,7 +23,7 @@ var Asignacion = /** @class */ (function () {
             }
             else {
                 //Error semantico, no existe la variable
-                console.log("Error semantico, no existe la variable");
+                console.log("Error semantico, no existe la variable " + id);
             }
         }
         return "";

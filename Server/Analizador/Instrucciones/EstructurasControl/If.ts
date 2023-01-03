@@ -20,7 +20,7 @@ export default class If implements Instruccion{
 
     ejecutarInstruccion(tabla: TablaSimbolos): string {
         let consola = "";
-        let tablaIf = new TablaSimbolos(tabla, "If");
+        let tablaIf = tabla.addSubEntorno("IF");
         for(let instruccion of this.cuerpo){
             if(instruccion != null){
                 let temp = instruccion.ejecutarInstruccion(tablaIf);

@@ -46,8 +46,9 @@
                         WriteLINE("Si y solo si d , e, f tienen 10 en la tabla de simbolos, de lo contrario tienes 5");
 
                     
+                    }
                 }
-            }
+            }    
 
             /*
             *ERRORES LEXICOS LINEA 53 

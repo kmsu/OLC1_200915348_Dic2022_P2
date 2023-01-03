@@ -30,7 +30,7 @@ export default class Asignacion implements Instruccion{
                 }
             }else{
                 //Error semantico, no existe la variable
-                console.log("Error semantico, no existe la variable");
+                console.log("Error semantico, no existe la variable " + id);
             }
         }
         return "";
