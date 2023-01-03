@@ -2,7 +2,7 @@ import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
 
-export default class While implements Instruccion{
+export default class Do implements Instruccion{
 
     private expresion:Instruccion;
     private cuerpo:Array<Instruccion>;
@@ -18,10 +18,10 @@ export default class While implements Instruccion{
 
     ejecutarInstruccion(tabla: TablaSimbolos): string {
         let consola = "";
-        let tablaWhile = tabla.addSubEntorno("While");
+        let tablaDo = tabla.addSubEntorno("DoWhile");
         for(let instruccion of this.cuerpo){
             if(instruccion != null){
-                let temp = instruccion.ejecutarInstruccion(tablaWhile);
+                let temp = instruccion.ejecutarInstruccion(tablaDo);
                 if(temp != ""){
                     consola += temp + "\n";
                 }

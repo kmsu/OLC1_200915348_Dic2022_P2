@@ -133,6 +133,7 @@ caracter     (\'({escape2}|{aceptada2})\')
     const classSwitch = require('../Analizador/Instrucciones/EstructurasControl/Switch');
     const classCase = require('../Analizador/Instrucciones/EstructurasControl/Case');
     const classWhile = require('../Analizador/Instrucciones/EstructurasControl/While');
+    const classDo = require('../Analizador/Instrucciones/EstructurasControl/Do');
 
     const classAnalisis = require('./Analisis');
     var analisis = new classAnalisis;
@@ -273,7 +274,7 @@ CASE
 ;
 
 DO
-    :resDo LlaveA INSTRUCCIONES LlaveC resWhile ParA EXPRESION ParC PComa { $$ = $3+" "+$7;}
+    :resDo LlaveA INSTRUCCIONES LlaveC resWhile ParA EXPRESION ParC PComa { $$ = new classDo.default($7, $3, this._$.first_line, this._$.first_column);}
 ;
 
 FOR

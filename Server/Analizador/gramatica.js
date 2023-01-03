@@ -216,7 +216,7 @@ case 62:
  this.$ = new classElse.default($$[$0-1], this._$.first_line, this._$.first_column); 
 break;
 case 64:
- this.$ = $$[$0-4]+$$[$0-1];
+ this.$ = new classWhile.default($$[$0-4], $$[$0-1], this._$.first_line, this._$.first_column);
 break;
 case 65:
  this.$ = new classSwitch.default($$[$0-4], $$[$0-1], this._$.first_line, this._$.first_column); 
@@ -231,7 +231,7 @@ case 70:
  this.$ = new classCase.default(null, $$[$0], null, this._$.first_line, this._$.first_column); 
 break;
 case 72:
- this.$ = $$[$0-6]+" "+$$[$0-2];
+ this.$ = new classDo.default($$[$0-2], $$[$0-6], this._$.first_line, this._$.first_column);
 break;
 case 73:
  this.$ = "De " + $$[$0-8] + " as " + $$[$0-6] + " Inc " + $$[$0-4] + " ins " + $$[$0-1]; 
@@ -533,6 +533,8 @@ _handle_error:
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');
     const classSwitch = require('../Analizador/Instrucciones/EstructurasControl/Switch');
     const classCase = require('../Analizador/Instrucciones/EstructurasControl/Case');
+    const classWhile = require('../Analizador/Instrucciones/EstructurasControl/While');
+    const classDo = require('../Analizador/Instrucciones/EstructurasControl/Do');
 
     const classAnalisis = require('./Analisis');
     var analisis = new classAnalisis;
