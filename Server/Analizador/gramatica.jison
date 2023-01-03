@@ -130,6 +130,9 @@ caracter     (\'({escape2}|{aceptada2})\')
 
     const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');
+    const classSwitch = require('../Analizador/Instrucciones/EstructurasControl/Switch');
+    const classCase = require('../Analizador/Instrucciones/EstructurasControl/Case');
+    const classWhile = require('../Analizador/Instrucciones/EstructurasControl/While');
 
     const classAnalisis = require('./Analisis');
     var analisis = new classAnalisis;
@@ -253,19 +256,20 @@ ELSE
 ;
 
 WHILE
-    :resWhile ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC { $$ = $3+$6;}
+    :resWhile ParA EXPRESION ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classWhile.default($3, $6, this._$.first_line, this._$.first_column);}
 ;
 
 SWITCH
-    :resSwitch ParA EXPRESION ParC LlaveA CASE LlaveC { $$ = $3 + $6;}
+    :resSwitch ParA EXPRESION ParC LlaveA CASE LlaveC { $$ = new classSwitch.default($3, $6, this._$.first_line, this._$.first_column); }
 ;
 
 CASE
-    :resCase Caracter DosPuntos INSTRUCCIONES CASE { $$ = $4+$5;}
-    |resCase Cadena DosPuntos INSTRUCCIONES CASE { $$ = $4+$5; }
-    |resCase Decimal DosPuntos INSTRUCCIONES CASE { $$ = $4+$5;}
-    |resCase Entero DosPuntos INSTRUCCIONES CASE { $$ = $4+$5;}
-    |resDefault DosPuntos INSTRUCCIONES { $$ = $3;}
+    :resCase Caracter DosPuntos INSTRUCCIONES CASE  { $$ = new classCase.default($2, $4, $5, this._$.first_line, this._$.first_column); }
+    |resCase Cadena DosPuntos INSTRUCCIONES CASE    { $$ = new classCase.default($2, $4, $5, this._$.first_line, this._$.first_column); }
+    |resCase Decimal DosPuntos INSTRUCCIONES CASE   { $$ = new classCase.default($2, $4, $5, this._$.first_line, this._$.first_column); }
+    |resCase Entero DosPuntos INSTRUCCIONES CASE    { $$ = new classCase.default($2,$4, $5, this._$.first_line, this._$.first_column); }
+    |resDefault DosPuntos INSTRUCCIONES             { $$ = new classCase.default(null, $3, null, this._$.first_line, this._$.first_column); }
+    |
 ;
 
 DO

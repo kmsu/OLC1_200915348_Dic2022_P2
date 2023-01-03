@@ -2,45 +2,45 @@ import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
 
-export default class If implements Instruccion{
+export default class Case implements Instruccion{
 
-    private expresion:Instruccion;
+    private condicion:string;
     private cuerpo:Array<Instruccion>;
-    private cuerpoElse:Instruccion;
+    private cuerpoCase:Instruccion;
     private linea:number;
     private columna:number;
 
-    constructor(expresion:Instruccion, cuerpo:Array<Instruccion>, cuerpoElse:Instruccion, linea:number, columna:number){
-        this.expresion = expresion;
+    constructor(condicion:string, cuerpo:Array<Instruccion>, cuerpoCase:Instruccion, linea:number, columna:number){
+        this.condicion = condicion;
         this.cuerpo = cuerpo;
-        this.cuerpoElse = cuerpoElse;
+        this.cuerpoCase = cuerpoCase;
         this.linea = linea;
         this.columna = columna;
     }
 
     ejecutarInstruccion(tabla: TablaSimbolos): string {
         let consola = "";
-        let tablaIf = tabla.addSubEntorno("IF");
+        let tablaCase = tabla.addSubEntorno("Case");
+        
         for(let instruccion of this.cuerpo){
             if(instruccion != null){
-                let temp = instruccion.ejecutarInstruccion(tablaIf);
+                let temp = instruccion.ejecutarInstruccion(tablaCase);
                 if(temp != ""){
                     consola += temp + "\n";
                 }
             }
         }
 
-        if(this.cuerpoElse != null){
-            consola += this.cuerpoElse.ejecutarInstruccion(tabla);
+        if(this.cuerpoCase != null){
+            consola += this.cuerpoCase.ejecutarInstruccion(tabla);
         }
-
+        
         return consola;
     }
-
+    
     ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
         throw new Error("Method not implemented.");
     }
-
     dibujarAST(nodoPadre: number): string {
         throw new Error("Method not implemented.");
     }
