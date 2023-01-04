@@ -132,6 +132,7 @@ caracter     (\'({escape2}|{aceptada2})\')
     const classReturn = require('../Analizador/Instrucciones/Return');
     const classFuncion = require('../Analizador/Instrucciones/Funcion');
     const classMetodo = require('../Analizador/Instrucciones/Funcion');
+    const classLlamadaFuncion = require('../Analizador/Instrucciones/LlamadaFuncion');
 
     const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');
@@ -242,8 +243,8 @@ EXPRESION
     | Decimal { $$ = new decimal.default(Number($1), this._$.first_line, this._$.first_column); }
     | Verdadero { $$ = new booleano.default(true, this._$.first_line, this._$.first_column); }
     | Falso { $$ = new booleano.default(false, this._$.first_line, this._$.first_column); }
-    | LLAMADAFUNCION { $$ = $1; }
-    | LLAMADAVECTOR { $$ = $1; }
+    | LLAMADAFUNCION { $$ = null; }
+    | LLAMADAVECTOR { $$ = null; }
     | Id   { $$ = new id.default($1, this._$.first_line, this._$.first_column); }   
 ;
 
@@ -320,8 +321,8 @@ PARAMETRO
 ;
 
 LLAMADAFUNCION
-    :Id ParA ParC {$$ = $1;}
-    |Id ParA LISTAEXPRESION ParC { $$ = $1;}
+    :Id ParA ParC {$$ = new classLlamadaFuncion.default($1, this._$.first_line, this._$.first_column);} 
+    |Id ParA LISTAEXPRESION ParC {$$ = new classLlamadaFuncion.default($1, this._$.first_line, this._$.first_column);} 
 ;
 
 LISTAEXPRESION

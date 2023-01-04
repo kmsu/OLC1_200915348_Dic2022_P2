@@ -35,7 +35,29 @@ var TablaSimbolos = /** @class */ (function () {
         var cont = 1;
         for (var _i = 0, _a = this.listaSimbolos; _i < _a.length; _i++) {
             var symbol = _a[_i];
-            var temp = JSON.parse('{"no":' + cont + ', "id": "' + symbol.getId() + '", "TipoDato":' + symbol.getTipoDato() + ', "valor": "' + symbol.getValor().toString() + '", "entorno": "' + this.nombre + '", "linea": ' + symbol.getLinea() + ', "columna": ' + symbol.getColumna() + ' }');
+            var tipo = void 0;
+            switch (symbol.getTipoDato()) {
+                case 0:
+                    tipo = "int";
+                    break;
+                case 1:
+                    tipo = "double";
+                    break;
+                case 2:
+                    tipo = "boolean";
+                    break;
+                case 3:
+                    tipo = "char";
+                    break;
+                case 4:
+                    tipo = "string";
+                    break;
+                default:
+                    tipo = "Invalido";
+                    break;
+            }
+            //let temp:reporteJson = JSON.parse('{"no":'+cont+', "id": "' + symbol.getId()+ '", "TipoDato":'+ symbol.getTipoDato()  + ', "valor": "'+ symbol.getValor().toString()+ '", "entorno": "'+ this.nombre + '", "linea": '+ symbol.getLinea()+', "columna": ' + symbol.getColumna()+' }');
+            var temp = JSON.parse('{"no":' + cont + ', "id": "' + symbol.getId() + '", "TipoDato": "' + tipo + '", "valor": "' + symbol.getValor().toString() + '", "entorno": "' + this.nombre + '", "linea": ' + symbol.getLinea() + ', "columna": ' + symbol.getColumna() + ' }');
             lista1.push(temp);
             cont++;
         }

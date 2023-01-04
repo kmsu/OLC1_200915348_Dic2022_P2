@@ -29,10 +29,10 @@ export default class Declaracion implements Instruccion{
             if(this.valor==null){
                 switch(symTipo.getTipoDato()){
                     case TipoDato.CADENA:
-                        symValor = new Simbolo(symTipo.getTipoDato(), " ", -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                        symValor = new Simbolo(symTipo.getTipoDato(), "cadNull", -1, -1); //-1, -1 porque no existe en el codigo de entrada
                         break;
                     case TipoDato.CARACTER:
-                        symValor = new Simbolo(symTipo.getTipoDato(), ' ', -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                        symValor = new Simbolo(symTipo.getTipoDato(), 'charNull', -1, -1); //-1, -1 porque no existe en el codigo de entrada
                         break;
                     case TipoDato.BOOLEANO:
                         symValor = new Simbolo(symTipo.getTipoDato(), false, -1, -1); //-1, -1 porque no existe en el codigo de entrada

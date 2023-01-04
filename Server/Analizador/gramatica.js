@@ -92,7 +92,7 @@ break;
 case 3: case 26: case 84: case 88:
  this.$ = new Array(); this.$.push($$[$0]); 
 break;
-case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 16: case 17: case 19: case 55: case 56:
+case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 16: case 17: case 19:
  this.$ = $$[$0]; 
 break;
 case 15: case 18: case 20:
@@ -197,6 +197,9 @@ break;
 case 54:
  this.$ = new booleano.default(false, this._$.first_line, this._$.first_column); 
 break;
+case 55: case 56:
+ this.$ = null; 
+break;
 case 57:
  this.$ = new id.default($$[$0], this._$.first_line, this._$.first_column); 
 break;
@@ -267,10 +270,10 @@ case 83:
  this.$ = $$[$0-3]; this.$.push($$[$0]); 
 break;
 case 85:
-this.$ = $$[$0-2];
+this.$ = new classLlamadaFuncion.default($$[$0-2], this._$.first_line, this._$.first_column);
 break;
 case 86:
- this.$ = $$[$0-3];
+this.$ = new classLlamadaFuncion.default($$[$0-3], this._$.first_line, this._$.first_column);
 break;
 case 89:
  this.$ = $$[$0-10] + " " + $$[$0-9] + " " + $$[$0-2]; 
@@ -554,6 +557,7 @@ _handle_error:
     const classReturn = require('../Analizador/Instrucciones/Return');
     const classFuncion = require('../Analizador/Instrucciones/Funcion');
     const classMetodo = require('../Analizador/Instrucciones/Funcion');
+    const classLlamadaFuncion = require('../Analizador/Instrucciones/LlamadaFuncion');
 
     const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');

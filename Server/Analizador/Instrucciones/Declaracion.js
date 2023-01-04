@@ -20,10 +20,10 @@ var Declaracion = /** @class */ (function () {
             if (this.valor == null) {
                 switch (symTipo.getTipoDato()) {
                     case TipoDato_1.TipoDato.CADENA:
-                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), " ", -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), "cadNull", -1, -1); //-1, -1 porque no existe en el codigo de entrada
                         break;
                     case TipoDato_1.TipoDato.CARACTER:
-                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), ' ', -1, -1); //-1, -1 porque no existe en el codigo de entrada
+                        symValor = new Simbolo_1["default"](symTipo.getTipoDato(), 'charNull', -1, -1); //-1, -1 porque no existe en el codigo de entrada
                         break;
                     case TipoDato_1.TipoDato.BOOLEANO:
                         symValor = new Simbolo_1["default"](symTipo.getTipoDato(), false, -1, -1); //-1, -1 porque no existe en el codigo de entrada
