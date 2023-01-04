@@ -133,6 +133,9 @@ caracter     (\'({escape2}|{aceptada2})\')
     const classFuncion = require('../Analizador/Instrucciones/Funcion');
     const classMetodo = require('../Analizador/Instrucciones/Funcion');
     const classLlamadaFuncion = require('../Analizador/Instrucciones/LlamadaFuncion');
+    const declaraVector = require('../Analizador/Instrucciones/DeclaraVector');
+    const AsignaVector = require('../Analizador/Instrucciones/AsignaVector');
+    const LlamadaVector = require('../Analizador/Instrucciones/LlamadaVector');
 
     const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');
@@ -244,7 +247,7 @@ EXPRESION
     | Verdadero { $$ = new booleano.default(true, this._$.first_line, this._$.first_column); }
     | Falso { $$ = new booleano.default(false, this._$.first_line, this._$.first_column); }
     | LLAMADAFUNCION { $$ = null; }
-    | LLAMADAVECTOR { $$ = null; }
+    | LLAMADAVECTOR { $$ = $1; }
     | Id   { $$ = new id.default($1, this._$.first_line, this._$.first_column); }   
 ;
 
@@ -331,10 +334,11 @@ LISTAEXPRESION
 ;
 
 VECTORES
-    :TIPO Id CorA CorC Igual resNew TIPO CorA EXPRESION CorC PComa { $$ = $1 + " " + $2 + " " + $9; }
-    |TIPO Id CorA CorC Igual LlaveA LISTAEXPRESION LlaveC PComa { $$= $1 + " " + $2+ " " + $7; }
+    :TIPO Id CorA CorC Igual resNew TIPO CorA EXPRESION CorC PComa  { $$ = new declaraVector.default($1, $2, null, this._$.first_line, this._$.first_column); }
+    |TIPO Id CorA CorC Igual LlaveA LISTAEXPRESION LlaveC PComa     { $$ = new declaraVector.default($1, $2, null, this._$.first_line, this._$.first_column); }
+    |Id CorA EXPRESION CorC Igual EXPRESION PComa     { $$ = new AsignaVector.default($1, $6, this._$.first_line, this._$.first_column); }
 ;
 
 LLAMADAVECTOR
-    :Id CorA EXPRESION CorC { $$= $1 + $3; }
+    :Id CorA EXPRESION CorC {$$ = new LlamadaVector.default(Number(0), this._$.first_line, this._$.first_column);} 
 ;
