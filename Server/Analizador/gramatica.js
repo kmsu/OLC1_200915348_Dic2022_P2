@@ -177,7 +177,7 @@ case 47:
 this.$ = $$[$0-1];
 break;
 case 48:
- this.$ = $$[$0-4] + "?" + $$[$0-2] + ":" + $$[$0]; 
+ this.$ = new classIfTernario.default($$[$0-4], $$[$0-2], $$[$0],this._$.first_line, this._$.first_column); 
 break;
 case 49:
  this.$ = new cadena.default($$[$0].substr(1, yyleng - 2), this._$.first_line, this._$.first_column); 
@@ -567,6 +567,7 @@ _handle_error:
 
     const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');
+    const classIfTernario = require('../Analizador/Instrucciones/EstructurasControl/IfTernario');
     const classSwitch = require('../Analizador/Instrucciones/EstructurasControl/Switch');
     const classCase = require('../Analizador/Instrucciones/EstructurasControl/Case');
     const classWhile = require('../Analizador/Instrucciones/EstructurasControl/While');

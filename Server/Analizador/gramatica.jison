@@ -139,6 +139,7 @@ caracter     (\'({escape2}|{aceptada2})\')
 
     const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');
+    const classIfTernario = require('../Analizador/Instrucciones/EstructurasControl/IfTernario');
     const classSwitch = require('../Analizador/Instrucciones/EstructurasControl/Switch');
     const classCase = require('../Analizador/Instrucciones/EstructurasControl/Case');
     const classWhile = require('../Analizador/Instrucciones/EstructurasControl/While');
@@ -238,7 +239,8 @@ EXPRESION
     //AGRUPACION 
     | ParA EXPRESION ParC {$$ = $2;}
     //TERNARIO
-    | EXPRESION Interrogacion EXPRESION DosPuntos EXPRESION { $$ = $1 + "?" + $3 + ":" + $5; }
+    //banderaedad = edad > 17 ? true : false;
+    | EXPRESION Interrogacion EXPRESION DosPuntos EXPRESION { $$ = new classIfTernario.default($1, $3, $5,this._$.first_line, this._$.first_column); }
     //TERMINALES
     | Cadena { $$ = new cadena.default($1.substr(1, yyleng - 2), this._$.first_line, this._$.first_column); }
     | Caracter { $$ = new chhar.default($1.charCodeAt(1), this._$.first_line, this._$.first_column); }
