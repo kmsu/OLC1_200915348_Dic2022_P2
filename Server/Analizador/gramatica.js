@@ -95,7 +95,7 @@ break;
 case 4: case 5: case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 16: case 17: case 19: case 55: case 56:
  this.$ = $$[$0]; 
 break;
-case 15: case 18: case 20: case 76: case 77: case 79: case 80: case 81: case 82:
+case 15: case 18: case 20:
  this.$ = $$[$0-1]; 
 break;
 case 21:
@@ -236,11 +236,32 @@ break;
 case 73:
  this.$ = new classFor.default(null, $$[$0-1], this._$.first_line, this._$.first_column);
 break;
-case 74: case 75:
- this.$ = $$[$0-1];
+case 74:
+ this.$ = new classBreak.default("break", this._$.first_line, this._$.first_column);
+break;
+case 75:
+ this.$ = new classContinue.default("break", this._$.first_line, this._$.first_column);
+break;
+case 76:
+ this.$ = new classReturn.default($$[$0-1], this._$.first_line, this._$.first_column); 
+break;
+case 77:
+ this.$ = new classReturn.default(null, this._$.first_line, this._$.first_column); 
 break;
 case 78:
  this.$ = new classPrint.default($$[$0-2], this._$.first_line, this._$.first_column);
+break;
+case 79:
+ this.$ = new classMetodo.default($$[$0-5], $$[$0-1], this._$.first_line, this._$.first_column);
+break;
+case 80:
+ this.$ = new classMetodo.default($$[$0-6], $$[$0-1], this._$.first_line, this._$.first_column);
+break;
+case 81:
+ this.$ = new classFuncion.default($$[$0-5], $$[$0-1], this._$.first_line, this._$.first_column);
+break;
+case 82:
+ this.$ = new classFuncion.default($$[$0-6], $$[$0-1], this._$.first_line, this._$.first_column);
 break;
 case 83:
  this.$ = $$[$0-3]; this.$.push($$[$0]); 
@@ -528,6 +549,11 @@ _handle_error:
     const declaracion = require('../Analizador/Instrucciones/Declaracion');
     const asignacion = require('../Analizador/Instrucciones/Asignacion');
     const classPrint = require('../Analizador/Instrucciones/Print');
+    const classBreak = require('../Analizador/Instrucciones/Break');
+    const classContinue = require('../Analizador/Instrucciones/Continue');
+    const classReturn = require('../Analizador/Instrucciones/Return');
+    const classFuncion = require('../Analizador/Instrucciones/Funcion');
+    const classMetodo = require('../Analizador/Instrucciones/Funcion');
 
     const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');

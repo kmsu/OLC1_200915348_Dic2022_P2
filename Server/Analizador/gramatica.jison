@@ -127,6 +127,11 @@ caracter     (\'({escape2}|{aceptada2})\')
     const declaracion = require('../Analizador/Instrucciones/Declaracion');
     const asignacion = require('../Analizador/Instrucciones/Asignacion');
     const classPrint = require('../Analizador/Instrucciones/Print');
+    const classBreak = require('../Analizador/Instrucciones/Break');
+    const classContinue = require('../Analizador/Instrucciones/Continue');
+    const classReturn = require('../Analizador/Instrucciones/Return');
+    const classFuncion = require('../Analizador/Instrucciones/Funcion');
+    const classMetodo = require('../Analizador/Instrucciones/Funcion');
 
     const classIf = require('../Analizador/Instrucciones/EstructurasControl/If');
     const classElse = require('../Analizador/Instrucciones/EstructurasControl/Else');
@@ -283,16 +288,16 @@ FOR
 ;
 
 BREAK
-    :resBreak PComa { $$ = $1;}
+    :resBreak PComa { $$ = new classBreak.default("break", this._$.first_line, this._$.first_column);}
 ;
 
 CONTINUE
-    :resContinue PComa { $$ = $1;}
+    :resContinue PComa { $$ = new classContinue.default("break", this._$.first_line, this._$.first_column);}
 ;
 
 RETURN
-    :resReturn EXPRESION PComa { $$ = $2; }
-    |resReturn PComa { $$ = $1; }
+    :resReturn EXPRESION PComa { $$ = new classReturn.default($2, this._$.first_line, this._$.first_column); }
+    |resReturn PComa { $$ = new classReturn.default(null, this._$.first_line, this._$.first_column); }
 ;
 
 PRINT
@@ -300,13 +305,13 @@ PRINT
 ;
 
 METODO
-    :resVoid Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = $6; }
-    |resVoid Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = $7; }
+    :resVoid Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classMetodo.default($2, $6, this._$.first_line, this._$.first_column);} 
+    |resVoid Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classMetodo.default($2, $7, this._$.first_line, this._$.first_column);} 
 ;
 
-FUNCION
-    :TIPO Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = $6; }
-    |TIPO Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = $7; }
+FUNCION 
+    :TIPO Id ParA ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFuncion.default($2, $6, this._$.first_line, this._$.first_column);} 
+    |TIPO Id ParA PARAMETRO ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFuncion.default($2, $7, this._$.first_line, this._$.first_column);} 
 ;
 
 PARAMETRO
