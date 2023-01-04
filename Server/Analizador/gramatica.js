@@ -234,7 +234,7 @@ case 72:
  this.$ = new classDo.default($$[$0-2], $$[$0-6], this._$.first_line, this._$.first_column);
 break;
 case 73:
- this.$ = "De " + $$[$0-8] + " as " + $$[$0-6] + " Inc " + $$[$0-4] + " ins " + $$[$0-1]; 
+ this.$ = new classFor.default(null, $$[$0-1], this._$.first_line, this._$.first_column);
 break;
 case 74: case 75:
  this.$ = $$[$0-1];
@@ -535,6 +535,7 @@ _handle_error:
     const classCase = require('../Analizador/Instrucciones/EstructurasControl/Case');
     const classWhile = require('../Analizador/Instrucciones/EstructurasControl/While');
     const classDo = require('../Analizador/Instrucciones/EstructurasControl/Do');
+    const classFor = require('../Analizador/Instrucciones/EstructurasControl/For');
 
     const classAnalisis = require('./Analisis');
     var analisis = new classAnalisis;

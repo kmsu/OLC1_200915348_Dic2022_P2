@@ -134,6 +134,7 @@ caracter     (\'({escape2}|{aceptada2})\')
     const classCase = require('../Analizador/Instrucciones/EstructurasControl/Case');
     const classWhile = require('../Analizador/Instrucciones/EstructurasControl/While');
     const classDo = require('../Analizador/Instrucciones/EstructurasControl/Do');
+    const classFor = require('../Analizador/Instrucciones/EstructurasControl/For');
 
     const classAnalisis = require('./Analisis');
     var analisis = new classAnalisis;
@@ -278,7 +279,7 @@ DO
 ;
 
 FOR
-    :resFor ParA TIPO Id Igual EXPRESION PComa EXPRESION PComa INCREMENTALES ParC LlaveA INSTRUCCIONES LlaveC { $$ = "De " + $6 + " as " + $8 + " Inc " + $10 + " ins " + $13; }
+    :resFor ParA TIPO Id Igual EXPRESION PComa EXPRESION PComa INCREMENTALES ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFor.default(null, $13, this._$.first_line, this._$.first_column);}
 ;
 
 BREAK
