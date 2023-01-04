@@ -25,7 +25,8 @@ var Incremental = /** @class */ (function () {
         }
         else {
             //Error semantico, no existe la variable
-            console.log("Error semantico, no existe la variable en incrementales en linea " + this.linea);
+            //console.log("Error semantico, no existe la variable en incrementales en linea " + this.linea);
+            errores.putError("Semantico", this.linea, this.columna, "no existe la variable " + this.id);
             sym = new Simbolo_1["default"](TipoDato_1.TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;
