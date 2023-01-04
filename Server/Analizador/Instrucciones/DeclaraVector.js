@@ -48,12 +48,12 @@ var DeclaraVector = /** @class */ (function () {
             }
             else {
                 //error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar
-                console.log("error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar");
+                console.log("error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar. linea " + this.linea);
             }
         }
         else {
             //error semantico ya existe la variable
-            console.log("error semantico ya existe la variable");
+            console.log("error semantico ya existe la variable. declaracion vector en la linea " + this.linea);
         }
         return ""; //como solo metemos el simbolo a la ts retornamos la cadena vacia porque no retornamos a la consola
     };

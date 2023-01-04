@@ -15,15 +15,14 @@ var Asignacion = /** @class */ (function () {
             if (sym != null) {
                 if (sym.getTipoDato() == symValor.getTipoDato()) {
                     sym.setValor(symValor.getValor());
-                    console.log("El valor de la variable " + id + " ha sido modificado");
                 }
                 else {
-                    console.log("Error semantico: tipos incompatibles en la asignacion");
+                    console.log("Error semantico: tipos incompatibles en la asignacion en la linea " + this.linea);
                 }
             }
             else {
                 //Error semantico, no existe la variable
-                console.log("Error semantico, no existe la variable " + id);
+                console.log("Error semantico, no existe la variable " + id + "en asignacion en la linea " + this.linea);
             }
         }
         return "";

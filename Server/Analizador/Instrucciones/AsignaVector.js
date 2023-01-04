@@ -13,15 +13,14 @@ var AsignaVector = /** @class */ (function () {
         if (sym != null) {
             if (sym.getTipoDato() == symValor.getTipoDato()) {
                 sym.setValor(symValor.getValor());
-                console.log("El valor de la variable " + this.identificador + " ha sido modificado");
             }
             else {
-                console.log("Error semantico: tipos incompatibles en la asignacion");
+                console.log("Error semantico: tipos incompatibles en la asignacion vector en la linea " + this.linea);
             }
         }
         else {
             //Error semantico, no existe la variable
-            console.log("Error semantico, no existe la variable " + this.identificador);
+            console.log("Error semantico, no existe la variable " + this.identificador + " en la asignacion vector en linea " + this.linea);
         }
         return "";
     };

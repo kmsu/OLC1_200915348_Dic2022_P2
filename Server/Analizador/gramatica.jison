@@ -289,6 +289,7 @@ DO
 
 FOR
     :resFor ParA TIPO Id Igual EXPRESION PComa EXPRESION PComa INCREMENTALES ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFor.default(null, $13, this._$.first_line, this._$.first_column);}
+    |resFor ParA TIPO Id Igual EXPRESION PComa EXPRESION PComa Id Igual EXPRESION ParC LlaveA INSTRUCCIONES LlaveC { $$ = new classFor.default(null, $15, this._$.first_line, this._$.first_column);}
 ;
 
 BREAK

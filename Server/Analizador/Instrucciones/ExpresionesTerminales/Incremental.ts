@@ -32,7 +32,7 @@ export default class Incremental implements Instruccion{
             }
         }else{
             //Error semantico, no existe la variable
-            console.log("Error semantico, no existe la variable");
+            console.log("Error semantico, no existe la variable en incrementales en linea " + this.linea);
             sym = new Simbolo(TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;

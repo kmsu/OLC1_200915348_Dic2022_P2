@@ -24,7 +24,7 @@ export default class Identificador implements Instruccion{
         let sym = tabla.buscarSimbolo(this.valor);
         if(sym == null){
             //Error semantico, no existe la variable
-            console.log("Error semantico, no existe la variable");
+            console.log("Error semantico, no existe la variable  identificador en linea " + this.linea);
             sym = new Simbolo(TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;

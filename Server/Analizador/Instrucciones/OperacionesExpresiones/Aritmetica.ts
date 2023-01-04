@@ -104,7 +104,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede sumar estos tipos de datos + ");
+                    console.log("invalido, error semantico, no se puede sumar estos tipos de datos en linea " + this.linea);
                     break;
                 }
                 
@@ -115,7 +115,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede restar estos tipos de datos");
+                    console.log("invalido, error semantico, no se puede restar estos tipos de datos en linea " + this.linea);
                     break;
                 }
 
@@ -125,7 +125,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(symDer.getTipoDato(), resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, Error unario resta ");
+                    console.log("invalido, error semantico, Error unario resta en linea " + this.linea);
                     break;
                 }
 
@@ -136,7 +136,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede multiplicar estos tipos de datos");
+                    console.log("invalido, error semantico, no se puede multiplicar estos tipos de datos en linea " + this.linea);
                     break;
                 }
 
@@ -151,7 +151,7 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede dividir estos tipos de datos");
+                    console.log("invalido, error semantico, no se puede dividir estos tipos de datos en linea " + this.linea);
                     break;
                 }
                 
@@ -162,12 +162,12 @@ export default class Aritmetica implements Instruccion{
                     return new Simbolo(tipo_resultante, resultado, this.linea, this.columna);
                 }else{
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede operar modulo entre estos tipos de datos");
+                    console.log("invalido, error semantico, no se puede operar modulo entre estos tipos de datos en linea " + this.linea);
                     break;
                 }
             default:
                 //return error semantico;
-                console.log("semantico no se reconoce la operacion ");
+                console.log("semantico no se reconoce la operacion en linea " + this.linea);
         }
         
         return new Simbolo(tipo_resultante, "Invalido", this.linea, this.columna);

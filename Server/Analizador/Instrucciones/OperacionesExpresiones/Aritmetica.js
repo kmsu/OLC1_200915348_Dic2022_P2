@@ -86,7 +86,7 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede sumar estos tipos de datos + ");
+                    console.log("invalido, error semantico, no se puede sumar estos tipos de datos en linea " + this.linea);
                     break;
                 }
             case '-':
@@ -97,7 +97,7 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede restar estos tipos de datos");
+                    console.log("invalido, error semantico, no se puede restar estos tipos de datos en linea " + this.linea);
                     break;
                 }
             case 'u':
@@ -107,7 +107,7 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, Error unario resta ");
+                    console.log("invalido, error semantico, Error unario resta en linea " + this.linea);
                     break;
                 }
             case '*':
@@ -118,7 +118,7 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede multiplicar estos tipos de datos");
+                    console.log("invalido, error semantico, no se puede multiplicar estos tipos de datos en linea " + this.linea);
                     break;
                 }
             case '/':
@@ -133,7 +133,7 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede dividir estos tipos de datos");
+                    console.log("invalido, error semantico, no se puede dividir estos tipos de datos en linea " + this.linea);
                     break;
                 }
             case '%':
@@ -144,12 +144,12 @@ var Aritmetica = /** @class */ (function () {
                 }
                 else {
                     //invalido, error semantico, no se puede sumar estos tipos de datos
-                    console.log("invalido, error semantico, no se puede operar modulo entre estos tipos de datos");
+                    console.log("invalido, error semantico, no se puede operar modulo entre estos tipos de datos en linea " + this.linea);
                     break;
                 }
             default:
                 //return error semantico;
-                console.log("semantico no se reconoce la operacion ");
+                console.log("semantico no se reconoce la operacion en linea " + this.linea);
         }
         return new Simbolo_1["default"](tipo_resultante, "Invalido", this.linea, this.columna);
     };
