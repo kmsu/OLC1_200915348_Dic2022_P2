@@ -1,3 +1,5 @@
+import Analisis from "../Analisis";
+import Errores from "./Errores";
 import { Instruccion } from "./Instruccion";
 import Simbolo from "./TablaSimbolos/Simbolo";
 import TablaSimbolos from "./TablaSimbolos/TablaSimbolos";
@@ -19,12 +21,12 @@ export default class Declaracion implements Instruccion{
         this.columna = columna;
     }
     
-    ejecutarInstruccion(tabla: TablaSimbolos): string {
-        let symTipo = this.tipoDato.ejecutarExpresion(tabla); //ejecutarExpresion porque se va a obtener el tipo de variable
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores): string {
+        let symTipo = this.tipoDato.ejecutarExpresion(tabla, errores); //ejecutarExpresion porque se va a obtener el tipo de variable
         let symValor;
         
         if(this.valor != null){
-            symValor = this.valor.ejecutarExpresion(tabla);
+            symValor = this.valor.ejecutarExpresion(tabla, errores);
         }else{
             if(this.valor==null){
                 switch(symTipo.getTipoDato()){
@@ -59,17 +61,19 @@ export default class Declaracion implements Instruccion{
                     tabla.addSimbol(temp);
                 }else{
                     //error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar
-                    console.log("error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar. linea " + this.linea)
+                    //console.log("error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar. linea " + this.linea);
+                    errores.putError("Semantico", this.linea, this.columna, "error semantico, el tipo de la variable "+ id + " no es compatible con el tipo del valor a asignar.");
                 }
             }else{
                 //error semantico ya existe la variable
-                console.log("error semantico ya existe la variable. linea " + this.linea);
+                //console.log("error semantico ya existe la variable. linea " + this.linea);
+                errores.putError("Semantico", this.linea, this.columna, "error semantico ya existe la variable " + id);
             }
         }
         return ""; //como solo metemos el simbolo a la ts retornamos la cadena vacia porque no retornamos a la consola
     }
 
-    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores): Simbolo {
         throw new Error("Method not implemented.");
     }
     dibujarAST(nodoPadre: number): string {

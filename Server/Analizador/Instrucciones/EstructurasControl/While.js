@@ -7,13 +7,13 @@ var While = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    While.prototype.ejecutarInstruccion = function (tabla) {
+    While.prototype.ejecutarInstruccion = function (tabla, errores) {
         var consola = "";
         var tablaWhile = tabla.addSubEntorno("While");
         for (var _i = 0, _a = this.cuerpo; _i < _a.length; _i++) {
             var instruccion = _a[_i];
             if (instruccion != null) {
-                var temp = instruccion.ejecutarInstruccion(tablaWhile);
+                var temp = instruccion.ejecutarInstruccion(tablaWhile, errores);
                 if (temp != "") {
                     consola += temp + "\n";
                 }
@@ -21,7 +21,7 @@ var While = /** @class */ (function () {
         }
         return consola;
     };
-    While.prototype.ejecutarExpresion = function (tabla) {
+    While.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     While.prototype.dibujarAST = function (nodoPadre) {

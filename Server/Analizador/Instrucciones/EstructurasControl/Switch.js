@@ -7,15 +7,15 @@ var Switch = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Switch.prototype.ejecutarInstruccion = function (tabla) {
+    Switch.prototype.ejecutarInstruccion = function (tabla, errores) {
         var consola = "";
         var tablaSwitch = tabla.addSubEntorno("Switch");
         if (this.cuerpoCase != null) {
-            consola += this.cuerpoCase.ejecutarInstruccion(tablaSwitch);
+            consola += this.cuerpoCase.ejecutarInstruccion(tablaSwitch, errores);
         }
         return consola;
     };
-    Switch.prototype.ejecutarExpresion = function (tabla) {
+    Switch.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     Switch.prototype.dibujarAST = function (nodoPadre) {

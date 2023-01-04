@@ -8,10 +8,10 @@ var Numero = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Numero.prototype.ejecutarInstruccion = function (tabla) {
+    Numero.prototype.ejecutarInstruccion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
-    Numero.prototype.ejecutarExpresion = function (tabla) {
+    Numero.prototype.ejecutarExpresion = function (tabla, errores) {
         var sym = new Simbolo_1["default"](TipoDato_1.TipoDato.ENTERO, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
         return sym;
     };

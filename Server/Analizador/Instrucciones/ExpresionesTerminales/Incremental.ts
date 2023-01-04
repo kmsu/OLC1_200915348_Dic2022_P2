@@ -1,3 +1,4 @@
+import Errores from "../Errores";
 import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
@@ -17,12 +18,12 @@ export default class Incremental implements Instruccion{
         this.columna = columna;
     }
 
-    ejecutarInstruccion(tabla: TablaSimbolos): string {
-        this.ejecutarExpresion(tabla);
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores): string {
+        this.ejecutarExpresion(tabla, errores);
         return "";
     }
 
-    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores): Simbolo {
         let sym = tabla.buscarSimbolo(this.id);
         if(sym != null){
             if(this.tipo == '++'){
@@ -32,7 +33,8 @@ export default class Incremental implements Instruccion{
             }
         }else{
             //Error semantico, no existe la variable
-            console.log("Error semantico, no existe la variable en incrementales en linea " + this.linea);
+            //console.log("Error semantico, no existe la variable en incrementales en linea " + this.linea);
+            errores.putError("Semantico", this.linea, this.columna, "no existe la variable " + this.id);
             sym = new Simbolo(TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;

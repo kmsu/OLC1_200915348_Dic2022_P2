@@ -8,10 +8,10 @@ var Booleano = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Booleano.prototype.ejecutarInstruccion = function (tabla) {
+    Booleano.prototype.ejecutarInstruccion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
-    Booleano.prototype.ejecutarExpresion = function (tabla) {
+    Booleano.prototype.ejecutarExpresion = function (tabla, errores) {
         return new Simbolo_1["default"](TipoDato_1.TipoDato.BOOLEANO, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
     };
     Booleano.prototype.dibujarAST = function (nodoPadre) {

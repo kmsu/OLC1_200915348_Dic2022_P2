@@ -10,11 +10,11 @@ var Declaracion = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Declaracion.prototype.ejecutarInstruccion = function (tabla) {
-        var symTipo = this.tipoDato.ejecutarExpresion(tabla); //ejecutarExpresion porque se va a obtener el tipo de variable
+    Declaracion.prototype.ejecutarInstruccion = function (tabla, errores) {
+        var symTipo = this.tipoDato.ejecutarExpresion(tabla, errores); //ejecutarExpresion porque se va a obtener el tipo de variable
         var symValor;
         if (this.valor != null) {
-            symValor = this.valor.ejecutarExpresion(tabla);
+            symValor = this.valor.ejecutarExpresion(tabla, errores);
         }
         else {
             if (this.valor == null) {
@@ -50,17 +50,19 @@ var Declaracion = /** @class */ (function () {
                 }
                 else {
                     //error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar
-                    console.log("error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar. linea " + this.linea);
+                    //console.log("error semantico, el tipo de la variable no es compatible con el tipo del valor a asignar. linea " + this.linea);
+                    errores.putError("Semantico", this.linea, this.columna, "error semantico, el tipo de la variable " + id + " no es compatible con el tipo del valor a asignar.");
                 }
             }
             else {
                 //error semantico ya existe la variable
-                console.log("error semantico ya existe la variable. linea " + this.linea);
+                //console.log("error semantico ya existe la variable. linea " + this.linea);
+                errores.putError("Semantico", this.linea, this.columna, "error semantico ya existe la variable " + id);
             }
         }
         return ""; //como solo metemos el simbolo a la ts retornamos la cadena vacia porque no retornamos a la consola
     };
-    Declaracion.prototype.ejecutarExpresion = function (tabla) {
+    Declaracion.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     Declaracion.prototype.dibujarAST = function (nodoPadre) {

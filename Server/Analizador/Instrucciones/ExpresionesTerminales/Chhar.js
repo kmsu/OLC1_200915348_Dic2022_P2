@@ -8,10 +8,10 @@ var Chhar = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Chhar.prototype.ejecutarInstruccion = function (tabla) {
+    Chhar.prototype.ejecutarInstruccion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
-    Chhar.prototype.ejecutarExpresion = function (tabla) {
+    Chhar.prototype.ejecutarExpresion = function (tabla, errores) {
         return new Simbolo_1["default"](TipoDato_1.TipoDato.CARACTER, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
     };
     Chhar.prototype.dibujarAST = function (nodoPadre) {

@@ -1,3 +1,4 @@
+const { default: Errores } = require("./Instrucciones/Errores");
 const { default: TablaSimbolos } = require("./Instrucciones/TablaSimbolos/TablaSimbolos");
 
 class Analisis {
@@ -5,6 +6,7 @@ class Analisis {
     constructor(){
         this.clearAll();
         this.tabla = new TablaSimbolos;
+        this.erroreSemanticos = new Errores;
     }
 
     clearAll() {
@@ -16,10 +18,7 @@ class Analisis {
         
     }
 
-    getErrores(){
-        return this.errores;
-    }
-
+    //Lexicos y sintacticos
     putError(tipo, fila, columna, descripcion){
         this.errores.push({ Tipo:tipo, Linea:fila, Columna:columna, Descripcion:descripcion })
     }
@@ -34,19 +33,23 @@ class Analisis {
     putArbol(arbol){
         this.arbol= arbol;
     }
-
-    getReporte(){
-        //Se recorren desde el cliente
+    
+    getErrores(){
+        //console.log("es null la lista de errores semanticos " + this.erroreSemanticos != null);
+        for(let e of this.erroreSemanticos.getErrores()){
+            this.errores.push(e);
+        }
         return this.errores;
     }
- 
+
     getConsola(){
         var consola = "";
         //if(this.errores.length == 0){
             this.tabla = new TablaSimbolos(null, "Global");
+            this.erroreSemanticos = new Errores();
             for(let nodo of this.arbol){
                 if(nodo != null){
-                    let temp = nodo.ejecutarInstruccion(this.tabla);
+                    let temp = nodo.ejecutarInstruccion(this.tabla, this.erroreSemanticos);
                     if(temp != ""){
                         consola += temp + "\n";
                     }

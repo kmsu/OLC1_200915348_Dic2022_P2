@@ -1,3 +1,4 @@
+import Errores from "../Errores";
 import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
@@ -16,24 +17,21 @@ export default class For implements Instruccion{
         this.columna = columna;
     }
 
-    ejecutarInstruccion(tabla: TablaSimbolos): string {
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores): string {
         let consola = "";
         let tablaFor = tabla.addSubEntorno("For");
         for(let instruccion of this.cuerpo){
             if(instruccion != null){
-                let temp = instruccion.ejecutarInstruccion(tablaFor);
+                let temp = instruccion.ejecutarInstruccion(tablaFor, errores);
                 if(temp != ""){
                     consola += temp + "\n";
                 }
             }
         }
-        this.ejecutarExpresion(tablaFor);
         return consola;
     }
 
-    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
-        //tabla.buscarSimbolo();
-        //tabla.addSimbol();
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores): Simbolo {
         throw new Error("Method not implemented.");
     }
     dibujarAST(nodoPadre: number): string {

@@ -7,13 +7,13 @@ var Metodo = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Metodo.prototype.ejecutarInstruccion = function (tabla) {
+    Metodo.prototype.ejecutarInstruccion = function (tabla, errores) {
         var consola = "";
         var tablaMetodo = tabla.addSubEntorno("Metodo Void" + this.id);
         for (var _i = 0, _a = this.cuerpo; _i < _a.length; _i++) {
             var instruccion = _a[_i];
             if (instruccion != null) {
-                var temp = instruccion.ejecutarInstruccion(tablaMetodo);
+                var temp = instruccion.ejecutarInstruccion(tablaMetodo, errores);
                 if (temp != "") {
                     consola += temp + "\n";
                 }
@@ -21,7 +21,7 @@ var Metodo = /** @class */ (function () {
         }
         return consola;
     };
-    Metodo.prototype.ejecutarExpresion = function (tabla) {
+    Metodo.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     Metodo.prototype.dibujarAST = function (nodoPadre) {

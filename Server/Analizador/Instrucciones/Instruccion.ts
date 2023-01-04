@@ -1,3 +1,4 @@
+import Errores from "./Errores";
 import Simbolo from "./TablaSimbolos/Simbolo";
 import TablaSimbolos from "./TablaSimbolos/TablaSimbolos";
 
@@ -9,14 +10,14 @@ export interface Instruccion{
      * @ejecutarInstruccion devuelve en el string lo que se va a mostrar en consola de la aplicacion
      *  y ejecuta las sentencias de control.
      */
-    ejecutarInstruccion(tabla:TablaSimbolos):string;
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores):string;
     /**
      * 
      * @param tabla es la tabla de simbolos
      * @ejecutarExpresion devuelve un simbolo con el valor de las operaciones realizadas en las expresiones
      * Ej: 5+6= 11 (retorna 11 en el simbolo)
      */
-    ejecutarExpresion(tabla:TablaSimbolos):Simbolo;
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores):Simbolo;
     /**
      * 
      * @param nodoPadre es el identificador del nodo padre del AST

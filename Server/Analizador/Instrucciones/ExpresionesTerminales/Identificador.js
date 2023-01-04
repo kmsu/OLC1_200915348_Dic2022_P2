@@ -9,14 +9,15 @@ var Identificador = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Identificador.prototype.ejecutarInstruccion = function (tabla) {
+    Identificador.prototype.ejecutarInstruccion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
-    Identificador.prototype.ejecutarExpresion = function (tabla) {
+    Identificador.prototype.ejecutarExpresion = function (tabla, errores) {
         var sym = tabla.buscarSimbolo(this.valor);
         if (sym == null) {
             //Error semantico, no existe la variable
-            console.log("Error semantico, no existe la variable  identificador en linea " + this.linea);
+            //console.log("Error semantico, no existe la variable  identificador en linea " + this.linea);
+            errores.putError("Semantico", this.linea, this.columna, "no existe la variable " + this.valor);
             sym = new Simbolo_1["default"](TipoDato_1.TipoDato.INVALIDO, "", this.linea, this.columna);
         }
         return sym;

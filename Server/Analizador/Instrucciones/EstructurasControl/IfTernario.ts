@@ -1,3 +1,4 @@
+import Errores from "../Errores";
 import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
@@ -19,16 +20,16 @@ export default class IfTernario implements Instruccion {
         this.columna = columna;
     }
 
-    ejecutarInstruccion(tabla: TablaSimbolos): string {
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores): string {
         throw new Error("Method not implemented.");
     }
 
-    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores): Simbolo {
         let valor;
         if(this.condicion){
-            valor = this.condVerdadero.ejecutarExpresion(tabla).getValor();
+            valor = this.condVerdadero.ejecutarExpresion(tabla, errores).getValor();
         }else{
-            valor = this.condFalso.ejecutarExpresion(tabla).getValor();
+            valor = this.condFalso.ejecutarExpresion(tabla, errores).getValor();
         }
 
         let sym = new Simbolo(TipoDato.BOOLEANO, valor, this.linea, this.columna); //creamos un simbolo que representa una expresion

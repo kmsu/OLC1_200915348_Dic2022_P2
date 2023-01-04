@@ -10,11 +10,11 @@ var DeclaraVector = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    DeclaraVector.prototype.ejecutarInstruccion = function (tabla) {
-        var symTipo = this.tipoDato.ejecutarExpresion(tabla); //ejecutarExpresion porque se va a obtener el tipo de variable
+    DeclaraVector.prototype.ejecutarInstruccion = function (tabla, errores) {
+        var symTipo = this.tipoDato.ejecutarExpresion(tabla, errores); //ejecutarExpresion porque se va a obtener el tipo de variable
         var symValor;
         if (this.valor != null) {
-            symValor = this.valor.ejecutarExpresion(tabla);
+            symValor = this.valor.ejecutarExpresion(tabla, errores);
         }
         else {
             if (this.valor == null) {
@@ -57,7 +57,7 @@ var DeclaraVector = /** @class */ (function () {
         }
         return ""; //como solo metemos el simbolo a la ts retornamos la cadena vacia porque no retornamos a la consola
     };
-    DeclaraVector.prototype.ejecutarExpresion = function (tabla) {
+    DeclaraVector.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     DeclaraVector.prototype.dibujarAST = function (nodoPadre) {

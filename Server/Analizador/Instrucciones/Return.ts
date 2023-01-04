@@ -1,3 +1,4 @@
+import Errores from "./Errores";
 import { Instruccion } from "./Instruccion";
 import Simbolo from "./TablaSimbolos/Simbolo";
 import TablaSimbolos from "./TablaSimbolos/TablaSimbolos";
@@ -16,8 +17,8 @@ export default class Print implements Instruccion{
         this.columna = columna;
     }
 
-    ejecutarInstruccion(tabla: TablaSimbolos): string {
-        let symExpresion = this.expresion.ejecutarExpresion(tabla);
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores): string {
+        let symExpresion = this.expresion.ejecutarExpresion(tabla, errores);
         let consola = "";
         if(symExpresion !=null){
             if(symExpresion.getTipoDato() != TipoDato.INVALIDO){
@@ -32,7 +33,7 @@ export default class Print implements Instruccion{
     
     }
 
-    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores): Simbolo {
         throw new Error("Method not implemented.");
     }
     

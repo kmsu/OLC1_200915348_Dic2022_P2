@@ -8,10 +8,10 @@ var Cadena = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Cadena.prototype.ejecutarInstruccion = function (tabla) {
+    Cadena.prototype.ejecutarInstruccion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
-    Cadena.prototype.ejecutarExpresion = function (tabla) {
+    Cadena.prototype.ejecutarExpresion = function (tabla, errores) {
         return new Simbolo_1["default"](TipoDato_1.TipoDato.CADENA, this.valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
     };
     Cadena.prototype.dibujarAST = function (nodoPadre) {

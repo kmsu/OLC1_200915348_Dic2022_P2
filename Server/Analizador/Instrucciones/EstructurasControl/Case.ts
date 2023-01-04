@@ -1,3 +1,4 @@
+import Errores from "../Errores";
 import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
@@ -18,13 +19,13 @@ export default class Case implements Instruccion{
         this.columna = columna;
     }
 
-    ejecutarInstruccion(tabla: TablaSimbolos): string {
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores): string {
         let consola = "";
         let tablaCase = tabla.addSubEntorno("Case");
         
         for(let instruccion of this.cuerpo){
             if(instruccion != null){
-                let temp = instruccion.ejecutarInstruccion(tablaCase);
+                let temp = instruccion.ejecutarInstruccion(tablaCase, errores);
                 if(temp != ""){
                     consola += temp + "\n";
                 }
@@ -32,13 +33,13 @@ export default class Case implements Instruccion{
         }
 
         if(this.cuerpoCase != null){
-            consola += this.cuerpoCase.ejecutarInstruccion(tabla);
+            consola += this.cuerpoCase.ejecutarInstruccion(tabla, errores);
         }
         
         return consola;
     }
     
-    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores): Simbolo {
         throw new Error("Method not implemented.");
     }
     dibujarAST(nodoPadre: number): string {

@@ -6,10 +6,10 @@ var Continue = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Continue.prototype.ejecutarInstruccion = function (tabla) {
+    Continue.prototype.ejecutarInstruccion = function (tabla, errores) {
         return "";
     };
-    Continue.prototype.ejecutarExpresion = function (tabla) {
+    Continue.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     Continue.prototype.dibujarAST = function (nodoPadre) {

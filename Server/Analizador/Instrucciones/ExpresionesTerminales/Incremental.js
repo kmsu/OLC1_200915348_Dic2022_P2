@@ -9,11 +9,11 @@ var Incremental = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Incremental.prototype.ejecutarInstruccion = function (tabla) {
-        this.ejecutarExpresion(tabla);
+    Incremental.prototype.ejecutarInstruccion = function (tabla, errores) {
+        this.ejecutarExpresion(tabla, errores);
         return "";
     };
-    Incremental.prototype.ejecutarExpresion = function (tabla) {
+    Incremental.prototype.ejecutarExpresion = function (tabla, errores) {
         var sym = tabla.buscarSimbolo(this.id);
         if (sym != null) {
             if (this.tipo == '++') {

@@ -10,16 +10,16 @@ var IfTernario = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    IfTernario.prototype.ejecutarInstruccion = function (tabla) {
+    IfTernario.prototype.ejecutarInstruccion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
-    IfTernario.prototype.ejecutarExpresion = function (tabla) {
+    IfTernario.prototype.ejecutarExpresion = function (tabla, errores) {
         var valor;
         if (this.condicion) {
-            valor = this.condVerdadero.ejecutarExpresion(tabla).getValor();
+            valor = this.condVerdadero.ejecutarExpresion(tabla, errores).getValor();
         }
         else {
-            valor = this.condFalso.ejecutarExpresion(tabla).getValor();
+            valor = this.condFalso.ejecutarExpresion(tabla, errores).getValor();
         }
         var sym = new Simbolo_1["default"](TipoDato_1.TipoDato.BOOLEANO, valor, this.linea, this.columna); //creamos un simbolo que representa una expresion
         return sym;

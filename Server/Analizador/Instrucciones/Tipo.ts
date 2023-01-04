@@ -1,3 +1,4 @@
+import Errores from "./Errores";
 import { Instruccion } from "./Instruccion";
 import Simbolo from "./TablaSimbolos/Simbolo";
 import TablaSimbolos from "./TablaSimbolos/TablaSimbolos";
@@ -15,11 +16,11 @@ export default class Tipo implements Instruccion{
         this.columna = columna;
     }
 
-    ejecutarInstruccion(tabla: TablaSimbolos): string {
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores): string {
         throw new Error("Method not implemented.");
     }
 
-    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores): Simbolo {
         return new Simbolo(this.tipo, null, this.linea, this.columna); //simbolo vacio se utiliza para representar el tipo de la variable a declarar
     }
     

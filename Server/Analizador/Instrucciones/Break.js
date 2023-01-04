@@ -6,10 +6,10 @@ var Break = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Break.prototype.ejecutarInstruccion = function (tabla) {
+    Break.prototype.ejecutarInstruccion = function (tabla, errores) {
         return "";
     };
-    Break.prototype.ejecutarExpresion = function (tabla) {
+    Break.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     Break.prototype.dibujarAST = function (nodoPadre) {

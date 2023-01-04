@@ -8,24 +8,24 @@ var Case = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Case.prototype.ejecutarInstruccion = function (tabla) {
+    Case.prototype.ejecutarInstruccion = function (tabla, errores) {
         var consola = "";
         var tablaCase = tabla.addSubEntorno("Case");
         for (var _i = 0, _a = this.cuerpo; _i < _a.length; _i++) {
             var instruccion = _a[_i];
             if (instruccion != null) {
-                var temp = instruccion.ejecutarInstruccion(tablaCase);
+                var temp = instruccion.ejecutarInstruccion(tablaCase, errores);
                 if (temp != "") {
                     consola += temp + "\n";
                 }
             }
         }
         if (this.cuerpoCase != null) {
-            consola += this.cuerpoCase.ejecutarInstruccion(tabla);
+            consola += this.cuerpoCase.ejecutarInstruccion(tabla, errores);
         }
         return consola;
     };
-    Case.prototype.ejecutarExpresion = function (tabla) {
+    Case.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     Case.prototype.dibujarAST = function (nodoPadre) {

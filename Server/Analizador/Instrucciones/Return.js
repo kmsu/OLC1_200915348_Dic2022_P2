@@ -7,8 +7,8 @@ var Print = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Print.prototype.ejecutarInstruccion = function (tabla) {
-        var symExpresion = this.expresion.ejecutarExpresion(tabla);
+    Print.prototype.ejecutarInstruccion = function (tabla, errores) {
+        var symExpresion = this.expresion.ejecutarExpresion(tabla, errores);
         var consola = "";
         if (symExpresion != null) {
             if (symExpresion.getTipoDato() != TipoDato_1.TipoDato.INVALIDO) {
@@ -22,7 +22,7 @@ var Print = /** @class */ (function () {
         }
         return "";
     };
-    Print.prototype.ejecutarExpresion = function (tabla) {
+    Print.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     Print.prototype.dibujarAST = function (nodoPadre) {

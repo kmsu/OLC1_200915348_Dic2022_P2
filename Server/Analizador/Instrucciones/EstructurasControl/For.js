@@ -7,13 +7,13 @@ var For = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    For.prototype.ejecutarInstruccion = function (tabla) {
+    For.prototype.ejecutarInstruccion = function (tabla, errores) {
         var consola = "";
         var tablaFor = tabla.addSubEntorno("For");
         for (var _i = 0, _a = this.cuerpo; _i < _a.length; _i++) {
             var instruccion = _a[_i];
             if (instruccion != null) {
-                var temp = instruccion.ejecutarInstruccion(tablaFor);
+                var temp = instruccion.ejecutarInstruccion(tablaFor, errores);
                 if (temp != "") {
                     consola += temp + "\n";
                 }
@@ -21,7 +21,7 @@ var For = /** @class */ (function () {
         }
         return consola;
     };
-    For.prototype.ejecutarExpresion = function (tabla) {
+    For.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     For.prototype.dibujarAST = function (nodoPadre) {

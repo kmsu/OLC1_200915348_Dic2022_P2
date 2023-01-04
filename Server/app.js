@@ -19,10 +19,14 @@ app.listen(8080, function () {
 var resultado = '';
 var reportError;
 var reporteTS;
+var analisis;// =  gramatica.parse(req.body.dato);
 app.post('/editor', function(req, res) {
-  var analisis =  gramatica.parse(req.body.dato);
+  if(analisis!=null){
+    analisis.clearAll();
+  }
+  analisis =  gramatica.parse(req.body.dato);
   resultado = analisis.getConsola(); 
-  reportError = analisis.getReporte();
+  reportError = analisis.getErrores();
   reporteTS = analisis.getReporteTS();
   //resultado = gramatica.parse(req.body.dato);
   /*

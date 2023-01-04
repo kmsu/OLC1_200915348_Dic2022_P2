@@ -1,19 +1,19 @@
 "use strict";
 exports.__esModule = true;
-var While = /** @class */ (function () {
-    function While(expresion, cuerpo, linea, columna) {
+var Do = /** @class */ (function () {
+    function Do(expresion, cuerpo, linea, columna) {
         this.expresion = expresion;
         this.cuerpo = cuerpo;
         this.linea = linea;
         this.columna = columna;
     }
-    While.prototype.ejecutarInstruccion = function (tabla) {
+    Do.prototype.ejecutarInstruccion = function (tabla, errores) {
         var consola = "";
         var tablaDo = tabla.addSubEntorno("DoWhile");
         for (var _i = 0, _a = this.cuerpo; _i < _a.length; _i++) {
             var instruccion = _a[_i];
             if (instruccion != null) {
-                var temp = instruccion.ejecutarInstruccion(tablaDo);
+                var temp = instruccion.ejecutarInstruccion(tablaDo, errores);
                 if (temp != "") {
                     consola += temp + "\n";
                 }
@@ -21,12 +21,12 @@ var While = /** @class */ (function () {
         }
         return consola;
     };
-    While.prototype.ejecutarExpresion = function (tabla) {
+    Do.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
-    While.prototype.dibujarAST = function (nodoPadre) {
+    Do.prototype.dibujarAST = function (nodoPadre) {
         throw new Error("Method not implemented.");
     };
-    return While;
+    return Do;
 }());
-exports["default"] = While;
+exports["default"] = Do;

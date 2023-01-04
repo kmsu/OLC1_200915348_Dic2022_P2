@@ -1,3 +1,4 @@
+import Errores from "../Errores";
 import { Instruccion } from "../Instruccion";
 import Simbolo from "../TablaSimbolos/Simbolo";
 import TablaSimbolos from "../TablaSimbolos/TablaSimbolos";
@@ -16,18 +17,18 @@ export default class Switch implements Instruccion{
         this.columna = columna;
     }
 
-    ejecutarInstruccion(tabla: TablaSimbolos): string {
+    ejecutarInstruccion(tabla:TablaSimbolos, errores:Errores): string {
         let consola = "";
         let tablaSwitch = tabla.addSubEntorno("Switch");
         
         if(this.cuerpoCase != null){
-            consola += this.cuerpoCase.ejecutarInstruccion(tablaSwitch);
+            consola += this.cuerpoCase.ejecutarInstruccion(tablaSwitch, errores);
         }
         
         return consola;
     }
 
-    ejecutarExpresion(tabla: TablaSimbolos): Simbolo {
+    ejecutarExpresion(tabla:TablaSimbolos, errores:Errores): Simbolo {
         throw new Error("Method not implemented.");
     }
     dibujarAST(nodoPadre: number): string {

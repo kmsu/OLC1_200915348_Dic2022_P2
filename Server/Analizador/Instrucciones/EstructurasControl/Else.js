@@ -6,13 +6,13 @@ var Else = /** @class */ (function () {
         this.linea = linea;
         this.columna = columna;
     }
-    Else.prototype.ejecutarInstruccion = function (tabla) {
+    Else.prototype.ejecutarInstruccion = function (tabla, errores) {
         var consola = "";
         var tablaElse = tabla.addSubEntorno("Else");
         for (var _i = 0, _a = this.cuerpo; _i < _a.length; _i++) {
             var instruccion = _a[_i];
             if (instruccion != null) {
-                var temp = instruccion.ejecutarInstruccion(tablaElse);
+                var temp = instruccion.ejecutarInstruccion(tablaElse, errores);
                 if (temp != "") {
                     consola += temp + "\n";
                 }
@@ -20,7 +20,7 @@ var Else = /** @class */ (function () {
         }
         return consola;
     };
-    Else.prototype.ejecutarExpresion = function (tabla) {
+    Else.prototype.ejecutarExpresion = function (tabla, errores) {
         throw new Error("Method not implemented.");
     };
     Else.prototype.dibujarAST = function (nodoPadre) {
