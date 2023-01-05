@@ -16,7 +16,10 @@ var Numero = /** @class */ (function () {
         return sym;
     };
     Numero.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        var id = new Date().getUTCMilliseconds();
+        var codGraphviz = id + " [ label=\"" + this.valor + "\"];\n";
+        codGraphviz += nodoPadre + " -> " + id + ";\n";
+        return codGraphviz;
     };
     return Numero;
 }());

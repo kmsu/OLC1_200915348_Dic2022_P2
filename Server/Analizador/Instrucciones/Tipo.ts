@@ -25,6 +25,28 @@ export default class Tipo implements Instruccion{
     }
     
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        let strTipo= "";
+        switch (this.tipo) {
+            case TipoDato.BOOLEANO:
+                strTipo= "Boolean";                
+                break;
+                case TipoDato.CADENA:
+                    strTipo= "String";                
+                    break;
+                    case TipoDato.CARACTER:
+                        strTipo= "Char";                
+                        break;
+
+                        case TipoDato.DECIMAL:
+                            strTipo= "Double";                
+                            break;
+                            case TipoDato.ENTERO:
+                                strTipo= "Int";                
+                                break;
+        }
+        let id=new Date().getUTCMilliseconds();
+        let codGraphviz = id + " [ label=\"" + strTipo + "\"];\n";
+        codGraphviz += nodoPadre + " -> " + id + ";\n";
+        return codGraphviz;
     }
 }

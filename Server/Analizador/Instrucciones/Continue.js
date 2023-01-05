@@ -13,7 +13,7 @@ var Continue = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Continue.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return Continue;
 }());

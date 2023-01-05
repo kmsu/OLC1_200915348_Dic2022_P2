@@ -32,6 +32,6 @@ export default class Switch implements Instruccion{
         throw new Error("Method not implemented.");
     }
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        return "";
     }
 }

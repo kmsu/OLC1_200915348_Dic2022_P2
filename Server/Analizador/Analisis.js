@@ -61,6 +61,19 @@ class Analisis {
         return consola;
     }
 
+    dibujarAST(){
+        var codGraphviz = "digraph D {\n";
+        
+        if(this.arbol != null){
+            codGraphviz += "1 [ label=\"INIT\"];\n";
+            for(let nodo of this.arbol){
+                if(nodo != null){
+                    codGraphviz += nodo.dibujarAST(1); //el uno es el id del nodo inicial
+                }
+            }
+        }
+        return codGraphviz + "}";
+    }
 
 }
 

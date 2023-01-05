@@ -30,7 +30,7 @@ var AsignaVector = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     AsignaVector.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return AsignaVector;
 }());

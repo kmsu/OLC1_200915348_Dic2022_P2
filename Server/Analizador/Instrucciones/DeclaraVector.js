@@ -63,7 +63,7 @@ var DeclaraVector = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     DeclaraVector.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return DeclaraVector;
 }());

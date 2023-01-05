@@ -25,7 +25,7 @@ var While = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     While.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return While;
 }());

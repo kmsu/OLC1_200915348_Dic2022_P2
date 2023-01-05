@@ -29,7 +29,7 @@ var If = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     If.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return If;
 }());

@@ -10,8 +10,8 @@ export class DataService {
   contenidoConsola$ = new EventEmitter<string>();
   limpiar$ = new EventEmitter<string>();
   reporteErrore$ = new EventEmitter<string>();
-  reporteAST$ = new EventEmitter<string>();
   reporteTS$ = new EventEmitter<string>();
+  reporteAST$ = new EventEmitter<string>();
 
   //Para conectar al servidor (Express)
   URL = "http://localhost:8080"
@@ -36,4 +36,7 @@ export class DataService {
     return this.http.get(`${this.URL}/getTS`);
   } 
   
+  getAST(){
+    return this.http.get(`${this.URL}/getAST`);
+  }
 }

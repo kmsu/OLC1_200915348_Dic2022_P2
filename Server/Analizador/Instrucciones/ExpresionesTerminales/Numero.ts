@@ -26,7 +26,10 @@ export default class Numero implements Instruccion {
     }
     
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        let id=new Date().getUTCMilliseconds();
+        let codGraphviz = id + " [ label=\"" + this.valor + "\"];\n";
+        codGraphviz += nodoPadre + " -> " + id + ";\n";
+        return codGraphviz;
     }
 }
 

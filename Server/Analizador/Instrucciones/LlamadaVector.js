@@ -16,7 +16,7 @@ var LlamadaVector = /** @class */ (function () {
         return sym;
     };
     LlamadaVector.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return LlamadaVector;
 }());

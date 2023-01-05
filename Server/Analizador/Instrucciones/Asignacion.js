@@ -33,7 +33,7 @@ var Asignacion = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Asignacion.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return Asignacion;
 }());

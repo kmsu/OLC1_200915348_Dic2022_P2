@@ -182,7 +182,7 @@ export default class Aritmetica implements Instruccion{
     }
 
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        return "";
     }
 
 }

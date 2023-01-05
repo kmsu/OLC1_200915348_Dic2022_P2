@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/servicios/data.service';
 
 @Component({
   selector: 'app-reporte-ast',
@@ -6,10 +7,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reporte-ast.component.css']
 })
 export class ReporteASTComponent implements OnInit {
+  
+  Ast:string = '';
 
-  constructor() { }
+  constructor(private dataService:DataService) { }
 
   ngOnInit(): void {
+    this.dataService.reporteAST$.subscribe(text => {
+      this.Ast = '';
+      this.GetAST();
+    })
+  }
+
+  GetAST(){
+    this.dataService.getAST().subscribe(
+      (res: any)=>{
+        this.Ast = res.reporte;
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
   }
 
 }

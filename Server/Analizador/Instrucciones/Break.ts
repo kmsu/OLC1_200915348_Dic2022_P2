@@ -25,6 +25,6 @@ export default class Break implements Instruccion{
     }
     
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        return "";
     }
 }

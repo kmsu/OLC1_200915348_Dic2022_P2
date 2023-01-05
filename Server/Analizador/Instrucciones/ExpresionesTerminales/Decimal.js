@@ -16,7 +16,9 @@ var Decimal = /** @class */ (function () {
         return sym;
     };
     Decimal.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        var codGraphviz = nodoPadre + 1 + " [ label=\"" + this.valor + "\"];\n";
+        codGraphviz += nodoPadre + " -> " + (nodoPadre + 1) + ";\n";
+        return codGraphviz;
     };
     return Decimal;
 }());

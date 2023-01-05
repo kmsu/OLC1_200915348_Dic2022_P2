@@ -32,7 +32,7 @@ var Incremental = /** @class */ (function () {
         return sym;
     };
     Incremental.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return Incremental;
 }());

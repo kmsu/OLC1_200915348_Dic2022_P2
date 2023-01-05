@@ -38,7 +38,7 @@ export default class Print implements Instruccion{
     }
     
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        return "";
     }
 
     

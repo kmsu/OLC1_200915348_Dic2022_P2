@@ -25,7 +25,7 @@ var Funcion = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Funcion.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return Funcion;
 }());

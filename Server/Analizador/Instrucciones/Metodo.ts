@@ -38,6 +38,6 @@ export default class Metodo implements Instruccion{
         throw new Error("Method not implemented.");
     }
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        return "";
     }
 }

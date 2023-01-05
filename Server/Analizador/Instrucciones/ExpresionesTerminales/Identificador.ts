@@ -33,6 +33,8 @@ export default class Identificador implements Instruccion{
     }
 
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        let codGraphviz = nodoPadre + 1 + " [ label=\"" + this.valor + "\"];\n";
+        codGraphviz += nodoPadre + " -> " + (nodoPadre + 1) + ";\n";
+        return codGraphviz;
     }
 }

@@ -25,7 +25,7 @@ var IfTernario = /** @class */ (function () {
         return sym;
     };
     IfTernario.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return IfTernario;
 }());

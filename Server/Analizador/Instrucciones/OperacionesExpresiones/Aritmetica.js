@@ -161,7 +161,7 @@ var Aritmetica = /** @class */ (function () {
         return new Simbolo_1["default"](tipo_resultante, "Invalido", this.linea, this.columna);
     };
     Aritmetica.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return Aritmetica;
 }());

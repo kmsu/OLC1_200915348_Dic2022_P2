@@ -26,7 +26,7 @@ var Print = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Print.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return Print;
 }());

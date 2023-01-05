@@ -27,7 +27,7 @@ export default class LlamadaVector implements Instruccion {
     }
     
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        return "";
     }
 }
 

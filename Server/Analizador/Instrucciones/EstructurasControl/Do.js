@@ -25,7 +25,7 @@ var Do = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Do.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return Do;
 }());

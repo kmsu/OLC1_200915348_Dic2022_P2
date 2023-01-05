@@ -19,6 +19,7 @@ app.listen(8080, function () {
 var resultado = '';
 var reportError;
 var reporteTS;
+var reporteAST;
 var analisis;// =  gramatica.parse(req.body.dato);
 app.post('/editor', function(req, res) {
   if(analisis!=null){
@@ -28,6 +29,7 @@ app.post('/editor', function(req, res) {
   resultado = analisis.getConsola(); 
   reportError = analisis.getErrores();
   reporteTS = analisis.getReporteTS();
+  reporteAST = analisis.dibujarAST();
   //resultado = gramatica.parse(req.body.dato);
   /*
   resultado = '';
@@ -49,4 +51,8 @@ app.get('/getErrores',function(req, res){
 
 app.get('/getTS',function(req, res){
   res.json({reporte: reporteTS})
+})
+
+app.get('/getAST',function(req, res){
+  res.json({reporte: reporteAST})
 })

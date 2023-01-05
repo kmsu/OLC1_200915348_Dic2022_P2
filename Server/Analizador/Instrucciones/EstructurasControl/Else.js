@@ -24,7 +24,7 @@ var Else = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Else.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        return "";
     };
     return Else;
 }());

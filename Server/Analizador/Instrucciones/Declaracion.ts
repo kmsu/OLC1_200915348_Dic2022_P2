@@ -77,7 +77,32 @@ export default class Declaracion implements Instruccion{
         throw new Error("Method not implemented.");
     }
     dibujarAST(nodoPadre: number): string {
-        throw new Error("Method not implemented.");
+        //console.log("hola"+ Date.now());
+        
+        let idDeclaracion= Date.now();
+        /**
+         *  private tipoDato:Instruccion;
+            private identificador:Array<string>;
+            private valor:Instruccion; 
+        */
+
+
+        let codGraphviz = idDeclaracion + " [ label=\"DECLARACION\"];\n";
+        codGraphviz += nodoPadre + " -> " + idDeclaracion + ";\n";
+        //Se agrega los nodos de los hijos(tipodato, id, valor)
+        //tipodato
+        codGraphviz+= this.tipoDato.dibujarAST(idDeclaracion);
+        //id
+        //let contador=2;
+        for (let identi of this.identificador){
+            let id= new Date().getUTCMilliseconds();
+            codGraphviz+=  id + " [ label=\"" + identi + "\"];\n";
+            codGraphviz += idDeclaracion + " -> " + id + ";\n";
+        }
+        //valor
+        codGraphviz+= this.valor.dibujarAST(idDeclaracion);
+
+        return codGraphviz;
     }
 
 }

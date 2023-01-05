@@ -66,7 +66,29 @@ var Declaracion = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     Declaracion.prototype.dibujarAST = function (nodoPadre) {
-        throw new Error("Method not implemented.");
+        //console.log("hola"+ Date.now());
+        var idDeclaracion = Date.now();
+        /**
+         *  private tipoDato:Instruccion;
+            private identificador:Array<string>;
+            private valor:Instruccion;
+        */
+        var codGraphviz = idDeclaracion + " [ label=\"DECLARACION\"];\n";
+        codGraphviz += nodoPadre + " -> " + idDeclaracion + ";\n";
+        //Se agrega los nodos de los hijos(tipodato, id, valor)
+        //tipodato
+        codGraphviz += this.tipoDato.dibujarAST(idDeclaracion);
+        //id
+        //let contador=2;
+        for (var _i = 0, _a = this.identificador; _i < _a.length; _i++) {
+            var identi = _a[_i];
+            var id = new Date().getUTCMilliseconds();
+            codGraphviz += id + " [ label=\"" + identi + "\"];\n";
+            codGraphviz += idDeclaracion + " -> " + id + ";\n";
+        }
+        //valor
+        codGraphviz += this.valor.dibujarAST(idDeclaracion);
+        return codGraphviz;
     };
     return Declaracion;
 }());
