@@ -1,6 +1,6 @@
 # OLC1 Diciembre 2022
 
-## Proyecto 1
+## Proyecto 2
 ### Organización de Lenguajes y Compiladores 1
 
 Nombre: LFScript
